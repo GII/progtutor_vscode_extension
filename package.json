@@ -16,19 +16,23 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "package-explorer",
+          "id": "interfaz",
           "title": "ProgTutor",
-          "icon": "media/robot.png",
-          "command": "progtutor.comUnity"
+          "icon": "media/robot.png"
         }
       ]
     },
     "views": {
-      "package-explorer": [
+      "interfaz": [
         {
 					"type": "webview",
-					"id": "progtutor.webview",
-					"name": "ProgTutor view"
+					"id": "progtutor.principal",
+					"name": "Principal"
+				},
+        {
+					"type": "webview",
+					"id": "progtutor.bibliog",
+					"name": "Bibliografía"
 				}
       ] 
     },
@@ -47,8 +51,26 @@
         "command": "progtutor.comUnity",
         "category": "ProgTutor: ",
         "title": "Unity"
-      }
-    ]
+      },
+      {
+				"command": "progtutor.refrecar",
+				"title": "Refresh",
+				"icon": {
+					"light": "resources/light/refresh.svg",
+					"dark": "resources/dark/refresh.svg"
+				}
+			}
+    ],
+    "menus": {
+			"view/title": [
+				{
+					"command": "progtutor.refrecar",
+					"when": "view == progtutor.principal",
+					"group": "navigation"
+				}
+			]
+		} 
+    
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

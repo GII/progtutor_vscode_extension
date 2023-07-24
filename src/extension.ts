@@ -5,7 +5,8 @@ import {escribirMetrica} from './dB';
 import {leerMetrica} from './dB';
 import {obtenerToken} from './dB';
 import {obtenerTema} from './dB';
-import {PruebaViewProvider} from './webview';
+import {WebPrincipal} from './webPrinc';
+import {WebBibliografia} from './webBiblig';
 import {WebBibliog} from './bib/bibliog';
 import {getWebviewOptions} from './bib/bibliog';
 
@@ -15,15 +16,18 @@ let token = '';
 let curso = '';
 let bloque = '';
 let reto = '';
-let inicioProg = false;
 
 
 export function activate(this: any, context: vscode.ExtensionContext) {
 
 	//crea el webview donde se muestran los botones---------------------------------------------------------------------------------
-	const pruebaProvider = new PruebaViewProvider(context.extensionUri);
+	const webPrinc = new WebPrincipal(context.extensionUri);
 	context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider(PruebaViewProvider.viewType, pruebaProvider));
+		vscode.window.registerWebviewViewProvider(WebPrincipal.viewType, webPrinc));
+
+	const webBib = new WebBibliografia(context.extensionUri);
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider(WebBibliografia.viewType, webBib));
 
 	//evento que se activa cada vez que se modifica el fichero python.py-----------------------------------------------------------
 	context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => {		
@@ -62,6 +66,12 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 			cargarDatosUsuario();
 	}));
 
+	//comando para refescar la página principal---------------------------------------------------------------------------------------
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.refrecar', () => {
+			cargarDatosUsuario();
+	}));
+
 	
 
 
@@ -84,6 +94,7 @@ function cargarDatosUsuario(){
 				curso = response.data.data.challenge.CourseId;
 				bloque = response.data.data.challenge.BlockId;
 				reto = response.data.data.challenge.ChallengeId;
+				vscode.window.showInformationMessage(`Datos de Usuario cargados correctamente`);
 			})
 			.catch((error: any) => {
 				vscode.window.showInformationMessage(`Antes de ejecutar debe cargar un reto`);
@@ -308,7 +319,20 @@ function crearDatosGuardar(resp: any, codMod: string): any{
 
 
 //aqui poner las funciones de prueba------------------------------------------------------------------------------------------
+function checkThemeStyle() {
+    // Obtenemos la configuración actual
+    const config = vscode.workspace.getConfiguration();
 
+    // Obtenemos el nombre del tema actual
+    const currentTheme = config.get<string>('workbench.colorTheme');
+	//vscode.window.showInformationMessage(`${currentTheme}`);
+    // Verificamos si el tema contiene la palabra "dark" o "light"
+    if (currentTheme && currentTheme.includes('Dark')) {
+        vscode.window.showInformationMessage(`OSCURO`);
+    } else {
+        vscode.window.showInformationMessage(`CLARO`);
+    }
+}
 
 
 

@@ -2,6 +2,53 @@ body {
 	background-color: transparent;
 }
 
+.color-list {
+	list-style: none;
+	padding: 0;
+}
+
+.color-entry {
+	width: 100%;
+	display: flex;
+	margin-bottom: 0.4em;
+	border: 1px solid var(--vscode-input-border);
+}
+
+.color-preview {
+	width: 2em;
+	height: 2em;
+}
+
+.color-preview:hover {
+	outline: inset white;
+}
+
+.color-input {
+	display: block;
+	flex: 1;
+	width: 100%;
+	color: var(--vscode-input-foreground);
+	background-color: var(--vscode-input-background);
+	border: none;
+	padding: 0 0.6em;
+}
+
+.add-color-button {
+	display: block;
+	border: none;
+	margin: 0 auto;
+}
+
+.puntoTema {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: white;
+    margin-right: 5px;
+	cursor: pointer;
+  }
+
 .subTema {
 	margin-left: 40px; 
 	cursor: pointer; 
@@ -34,9 +81,16 @@ body {
 	text-align: center;
   }
 
-.iconoGrande{
-	width: 50px;
-	height: 50px;
+.icono{
+	width: 10px;
+	height: 10px;
+	margin:8px;
+	cursor: pointer;
+}
+
+.iconoRef{
+	width: 32px;
+	height: 32px;
 	margin:0px;
 	cursor: pointer;
 	padding: 0px;
@@ -54,57 +108,14 @@ body {
 }
 
 .btnTransp{
-	flex-direction: column;
 	background-color: transparent;
 	cursor: pointer;
 	padding: 0px;
-	width: 68px;
-	height: 87px;
-	margin-top: 20px;
 }
 
 .btnTransp:hover{
 	background-color: rgb(64, 64, 64); 	
 	padding: 0px;
-}
-
-.btnTransp2{
-	display: flex;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0px;
-    height: 50px;
-    margin-top: 20px;
-	text-align: start;
-}
-
-
-
-.btnTransp2:hover{
-	background-color: rgb(64, 64, 64); 	
-	padding: 0px;
-}
-
-.iconoGrande2{
-	width: 50px;
-    height: 50px;
-    cursor: pointer;
-    padding: 0;
-    margin-right: 15px;
-}
-
-.hr {
-	border: none;
-	border-top: 2px solid white; 
-	margin: 0;
-}
-
-.pista{
-	margin-top:50px;
-	color: rgb(200, 202, 199);
-
 }
 
 
