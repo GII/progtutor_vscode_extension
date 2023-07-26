@@ -36,11 +36,45 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 					vscode.commands.executeCommand('progtutor.comUnity');
 					vscode.window.showInformationMessage(`Página actualizada`);
 					break;
+				case 'pistauno':
+					vscode.window.showInformationMessage(`Ejecuta pista 1`);
+					break;
+				case 'pistados':
+					vscode.window.showInformationMessage(`Ejecuta pista 2`);
+					break;
 			}
 		});
-
-
 	}
+
+	public libPista1() {
+		if (this._view) {
+			this._view.show?.(true);
+			this._view.webview.postMessage({ type: 'libPista1' });
+		}
+	}
+
+	public libPista2() {
+		if (this._view) {
+			this._view.show?.(true);
+			this._view.webview.postMessage({ type: 'libPista2' });
+		}
+	}
+
+	public bloqPista1() {
+		if (this._view) {
+			this._view.show?.(true);
+			this._view.webview.postMessage({ type: 'bloqPista1' });
+		}
+	}
+
+	public bloqPista2() {
+		if (this._view) {
+			this._view.show?.(true);
+			this._view.webview.postMessage({ type: 'bloqPista2' });
+		}
+	}
+
+
 
 	private _getHtmlForWebview(webview: vscode.Webview) {
 		vscode.commands.executeCommand('progtutor.comUnity');
@@ -130,8 +164,8 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 					<hr class="hr">
 
 					<div class="row">
-						<div class="col-12 text-start">
-							<button id="btn.pista1" class="btnTransp2">
+						<div class="col-12 text-start" >
+							<button id="pista1" class="btnTransp2" disabled>
 								<div class="row";>
 									<div class="col-5"><img src="${iconPista}" class="iconoGrande2"></div>
 									<div class="col-7" style="padding:0px;">
@@ -149,7 +183,7 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 
 					<div class="row">
 						<div class="col-12 text-start">
-							<button id="btn.pista2" class="btnTransp2">
+							<button id="pista2" class="btnTransp2" disabled>
 								<div class="row";>
 									<div class="col-5"><img src="${iconPista}" class="iconoGrande2"></div>
 									<div class="col-7" style="padding:0px;">

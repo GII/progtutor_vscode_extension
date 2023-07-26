@@ -9,8 +9,7 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-  ],
+  "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
     "viewsContainers": {
@@ -25,16 +24,16 @@
     "views": {
       "interfaz": [
         {
-					"type": "webview",
-					"id": "progtutor.principal",
-					"name": "Principal"
-				},
+          "type": "webview",
+          "id": "progtutor.principal",
+          "name": "Principal"
+        },
         {
-					"type": "webview",
-					"id": "progtutor.bibliog",
-					"name": "Bibliografía"
-				}
-      ] 
+          "type": "webview",
+          "id": "progtutor.bibliog",
+          "name": "Bibliografía"
+        }
+      ]
     },
     "commands": [
       {
@@ -53,24 +52,43 @@
         "title": "Unity"
       },
       {
-				"command": "progtutor.refrecar",
-				"title": "Refresh",
-				"icon": {
-					"light": "resources/light/refresh.svg",
-					"dark": "resources/dark/refresh.svg"
-				}
-			}
+				"command": "progtutor.libPista1",
+				"category": "Principal",
+				"title": "Pista 1"
+			},
+      {
+				"command": "progtutor.libPista2",
+				"category": "Principal",
+				"title": "Pista 2"
+			},
+      {
+				"command": "progtutor.bloqPista1",
+				"category": "Principal",
+				"title": "Bloqueo Pista 1"
+			},
+      {
+				"command": "progtutor.bloqPista2",
+				"category": "Principal",
+				"title": "Bloqueo Pista 2"
+			},
+      {
+        "command": "progtutor.refrecar",
+        "title": "Refresh",
+        "icon": {
+          "light": "resources/light/refresh.svg",
+          "dark": "resources/dark/refresh.svg"
+        }
+      }
     ],
     "menus": {
-			"view/title": [
-				{
-					"command": "progtutor.refrecar",
-					"when": "view == progtutor.principal",
-					"group": "navigation"
-				}
-			]
-		} 
-    
+      "view/title": [
+        {
+          "command": "progtutor.refrecar",
+          "when": "view == progtutor.principal",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -97,6 +115,7 @@
     "@types/node-fetch": "^2.6.4",
     "axios": "^1.4.0",
     "esm": "^3.2.25",
+    "fs": "^0.0.1-security",
     "google-translate-api": "^2.3.0",
     "moment": "^2.29.4",
     "mongodb": "^5.6.0",

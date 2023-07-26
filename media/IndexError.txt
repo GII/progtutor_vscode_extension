@@ -1,0 +1,4 @@
+Un IndexError es un error que ocurre cuando intentas acceder a un elemento en una secuencia (como una lista o una cadena) utilizando un índice no válido.
+Típicamente ocurre cuando intentas acceder a un índice que está fuera del rango de índices válidos para la secuencia.
+La indexación en Python comienza desde 0, por lo que si tienes una lista con 5 elementos, los índices válidos son 0, 1, 2, 3 y 4. Intentar acceder al índice 5 o cualquier índice mayor a 4 resultará en un IndexError.
+Para solucionar un IndexError, debes asegurarte de utilizar un índice válido dentro del rango de la secuencia. Verifica tu código para asegurarte de que no estás intentando acceder a un elemento que no existe.

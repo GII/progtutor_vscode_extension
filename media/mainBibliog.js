@@ -1,4 +1,3 @@
-//pista1.removeAttribute('disabled');
 
 function tema1(){
     const txtIntrod = document.getElementById('txtIntrod');
@@ -35,7 +34,7 @@ function tema1(){
     });
   
     tema1Enlace(tema11, tema12, tema13, tema14, tema15, tema16);
-  }
+}
   
   function tema1Enlace(tema11, tema12, tema13, tema14, tema15, tema16){
     

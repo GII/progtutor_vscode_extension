@@ -1,0 +1,4 @@
+Un FileNotFoundError es un error que ocurre cuando un archivo o directorio no se puede encontrar en la ruta especificada.
+Este error ocurre típicamente cuando intentas abrir, leer, escribir o realizar cualquier operación en un archivo que no existe.
+También puede ocurrir si escribiste incorrectamente el nombre del archivo o proporcionaste una ruta de archivo incorrecta.
+Para solucionar este error, debes verificar la ruta del archivo y asegurarte de que el archivo al que estás intentando acceder realmente exista.

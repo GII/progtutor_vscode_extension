@@ -1,0 +1,4 @@
+Un ImportError ocurre cuando el intérprete de Python no puede encontrar e importar un módulo o paquete que es necesario para que el programa se ejecute.
+Este error ocurre típicamente cuando el módulo o paquete no está instalado o no es accesible en el entorno actual.
+El mensaje de error usualmente proporciona información sobre el módulo o paquete específico que no pudo ser importado, lo cual puede ayudar a identificar el problema.
+Para resolver este error, debes asegurarte de que el módulo o paquete requerido esté instalado y sea accesible en el entorno de Python que estás utilizando.

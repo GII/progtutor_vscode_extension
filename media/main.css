@@ -80,6 +80,18 @@ body {
 	text-align: start;
 }
 
+.btnTransp2:disabled{
+	display: flex;
+    align-items: center;
+    border: none;
+    padding: 0px;
+    height: 50px;
+    margin-top: 20px;
+	text-align: start;
+	background-color: rgb(64, 64, 64);  
+	cursor: not-allowed;
+}
+
 
 
 .btnTransp2:hover{

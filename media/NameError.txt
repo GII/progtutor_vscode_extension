@@ -1,0 +1,4 @@
+Un NameError ocurre cuando intentas usar una variable o una función que no ha sido definida o no es accesible en el ámbito actual.
+Este error ocurre típicamente cuando escribes incorrectamente el nombre de una variable o función, o cuando olvidas importar un módulo que contiene la variable o función que estás intentando usar.
+Es importante tener en cuenta que Python distingue entre mayúsculas y minúsculas, por lo que también puede ocurrir un NameError si utilizas una capitalización inconsistente en los nombres de tus variables o funciones.
+Para solucionar un NameError, debes asegurarte de que la variable o función que estás intentando usar esté correctamente definida y accesible en el ámbito actual. Verifica la ortografía, la capitalización y las declaraciones de importación si es necesario.

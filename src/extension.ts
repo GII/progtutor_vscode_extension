@@ -9,6 +9,7 @@ import {WebPrincipal} from './webPrinc';
 import {WebBibliografia} from './webBiblig';
 import {WebBibliog} from './bib/bibliog';
 import {getWebviewOptions} from './bib/bibliog';
+import * as fs from 'fs';
 
 
 let tiempoInicial: number = 0;
@@ -16,6 +17,16 @@ let token = '';
 let curso = '';
 let bloque = '';
 let reto = '';
+const umbralTiempoInact = 300;
+const umbralPistaGPT = 2;
+const umbralPistaLinea = 4;
+let permisoLibPista1 = false;
+let permisoLibPista2 = false;
+let contErrorConsec1: number = 0;
+let contErrorConsec2: number = 0;
+const umbralCantError = 2;
+let modCodigo = false;
+let lineaError = 0;
 
 
 export function activate(this: any, context: vscode.ExtensionContext) {
@@ -24,6 +35,26 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	const webPrinc = new WebPrincipal(context.extensionUri);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(WebPrincipal.viewType, webPrinc));
+	
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.libPista1', () => {
+			webPrinc.libPista1();
+		}));
+	
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.libPista2', () => {
+			webPrinc.libPista2();
+		}));
+	
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.bloqPista1', () => {
+			webPrinc.bloqPista1();
+		}));
+	
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.bloqPista2', () => {
+			webPrinc.bloqPista2();
+		}));
 
 	const webBib = new WebBibliografia(context.extensionUri);
 	context.subscriptions.push(
@@ -33,6 +64,7 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => {		
         if (event.document === vscode.window.activeTextEditor?.document) {
             tiempoInactividad();
+			modCodigo = true;
         }
     }));
 
@@ -41,7 +73,7 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	diagnosticos.clear();
 	context.subscriptions.push(
 		vscode.commands.registerCommand('progtutor.ejecutarArchivo', () => {
-			ejecutar(diagnosticos);
+			ejecutar(diagnosticos, context);
 	}));
 
 	//comando para abrir una página web en VsCode--------------------------------------------------------------------------------
@@ -107,7 +139,7 @@ function cargarDatosUsuario(){
 }
 
 //se cargan los datos del reto y se ejecuta el archivo------------------------------------------------------------------------------------------
-function ejecutar(diagnosticos: any){
+function ejecutar(diagnosticos: any, context: vscode.ExtensionContext){
 	if(reto === ''){
 		vscode.window.showInformationMessage(`Debe actualizar la página`);
 	}
@@ -117,7 +149,7 @@ function ejecutar(diagnosticos: any){
 			curso = response.data.data.challenge.CourseId;
 			bloque = response.data.data.challenge.BlockId;
 			reto = response.data.data.challenge.ChallengeId;
-			ejecutarArchivo(diagnosticos);
+			ejecutarArchivo(diagnosticos, context);
 		})
 		.catch((error: any) => {
 			vscode.window.showInformationMessage(`Antes de ejecutar debe cargar un reto`);
@@ -125,9 +157,8 @@ function ejecutar(diagnosticos: any){
 	}
 }
 
-
 //se ejecuta el archivo python en un terminal nuevo y se hace todo el proceso para capturar el error---------------------------------------------
-function ejecutarArchivo(diagnosticos: any){
+function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionContext){
 	const editor = vscode.window.activeTextEditor;
 	if (!editor) {
 	  return;
@@ -145,13 +176,13 @@ function ejecutarArchivo(diagnosticos: any){
     terminal.show();
 
 	const intervalo = setInterval(() => {
-		revisarTexto(intervalo, editor, diagnosticos);
+		revisarTexto(intervalo, editor, diagnosticos, context);
 	  }, 2000);
 
 }
 
 //hace todo el procesamiento de los datos y revisa el texto---------------------------------------------------------------------------------------
-function revisarTexto(intervalo: any, editor: any, diagnosticos: any) {
+function revisarTexto(intervalo: any, editor: any, diagnosticos: any, context: vscode.ExtensionContext) {
 	const terminal = vscode.window.activeTerminal;
 	let miString: string = "";
 	let resultado = false;
@@ -165,7 +196,7 @@ function revisarTexto(intervalo: any, editor: any, diagnosticos: any) {
 			if(finalizado === true){
 				clearInterval(intervalo);
 				if(miString.search("Error") !== -1){
-					tratarError(miString, editor, diagnosticos);
+					tratarError(miString, editor, diagnosticos, context);
 				}else{
 					vscode.window.showInformationMessage(`¡NO HAY ERROR!`);
 				}
@@ -222,21 +253,38 @@ function obtenerError(msgError: string) :[string, number, any, string]{
 }
 
 //se crea una ventana de diagnostico con el mensaje a mostrar-------------------------------------------------------------------------------------
-function mostrarDiagnostico(mensaje: string, linea: number, editor: any, diagnosticos: any){
+function mostrarDiagnostico(mensaje: string, linea: number, editor: any, diagnosticos: any, context: vscode.ExtensionContext){
 	const lineaCodigo = editor.document.lineAt(linea);
     const texto = lineaCodigo.text;
 	let columna = texto.length + 1;
+	const bloqueId = parseInt(bloque, 10);
+	if(bloqueId <= umbralPistaGPT){
+		explicacionError(mensaje, context)
+		.then((data) => {
+			mensajeDiagnostico(data, linea, editor, diagnosticos, columna);
+	});
+	}else if(bloqueId > umbralPistaGPT && bloqueId <= umbralPistaLinea){
+		permisoLibPista2 = true;
+		mensajeDiagnostico(mensaje, linea, editor, diagnosticos, columna);
+	}else{
+		permisoLibPista1 = true;
+		permisoLibPista2 = true;;
+		diagnosticos.clear();
+	}	
+}
 
+function mensajeDiagnostico(mensaje: string, linea: number, editor: any, diagnosticos: any, columna: number){
+	vscode.window.showErrorMessage(`TIENE UN ERROR EN LA LÍNEA ${linea + 1}, REVISE EL CÓDIGO`);
 	const range = new vscode.Range(new vscode.Position(linea, 0), new vscode.Position(linea, columna));
 	const diag = new vscode.Diagnostic(range, mensaje, vscode.DiagnosticSeverity.Error);
 	diagnosticos.set(editor.document.uri, [diag]);
 }
 
 //tratamiento del error, guardado en base de datos-------------------------------------------------------------------------------------
-function tratarError(miString: string, editor: any, diagnosticos: any){
+function tratarError(miString: string, editor: any, diagnosticos: any, context: vscode.ExtensionContext){
 	const [mensaje, linea, fechaHora, codigoError] = obtenerError(miString);
-	mostrarDiagnostico(mensaje, linea - 1, editor, diagnosticos);
-	vscode.window.showErrorMessage(`TIENE UN ERROR EN LA LÍNEA ${linea}, REVISE EL CÓDIGO`);
+	mostrarPistas(linea);
+	mostrarDiagnostico(mensaje, linea - 1, editor, diagnosticos, context);
 	const codMod = guardarTipoError(codigoError);
 	leerMetrica(token, curso, bloque, reto)
 	.then((response: { data: any; }) => {
@@ -260,7 +308,7 @@ function tiempoInactividad(){
 	const tiempoFinal = (tiempo.getHours() * 3600) + (tiempo.getMinutes() * 60) + tiempo.getSeconds();
 	const tiempoTrans = tiempoFinal - tiempoInicial;
 
-	if(tiempoTrans > 300){
+	if(tiempoTrans > umbralTiempoInact){
 		tratarTiempos(tiempoTrans);
 		tiempoInicial = tiempoFinal;
 	}
@@ -317,22 +365,66 @@ function crearDatosGuardar(resp: any, codMod: string): any{
 	return datos;
 }
 
+//muestra el mensaje creado por chat gpt-----------------------------------------------------------------------------------------------
+function explicacionError(mensaje: string, context: vscode.ExtensionContext) :Promise<string>{
+	const tipoError = mensaje.split(":")[0].trim();
+	const nom = vscode.Uri.file(context.extensionPath + '/media/' + tipoError + '.txt');
+	const dir = nom.fsPath;
+	//const nombreArchivo = 'C:/Javier/ProgTutor/Repositorio/progtutor_vscode_extension/media/' + tipoError + '.txt';
+	return new Promise((resolve, reject) => {
+		fs.readFile(dir, 'utf8', (err, data) => {
+		  if (err) {
+			reject(err);
+			return;
+		  }
+		  const msg = mensaje + "\n" + data;
+		  resolve(msg);
+		});
+	});
+}
+
+//controla el estado de los botones de pistas segun la cantidad de ejecuciones---------------------------------------------------------
+function mostrarPistas(linea: number){
+	if(lineaError === 0){
+		lineaError = linea;
+	}else{
+		if(lineaError === linea){
+			if(modCodigo === true && permisoLibPista1 === true && permisoLibPista2 === true){
+				contErrorConsec1 = contErrorConsec1 + 1;
+				contErrorConsec2 = contErrorConsec2 + 1;
+				modCodigo = false;
+			}
+			if(modCodigo === true && permisoLibPista2 === true){
+				contErrorConsec2 = contErrorConsec2 + 1;
+				modCodigo = false;
+			}
+			
+			if(contErrorConsec1 > umbralCantError){
+				vscode.commands.executeCommand('progtutor.libPista1');
+				vscode.commands.executeCommand('progtutor.libPista2');
+			}
+			if(contErrorConsec2 > umbralCantError){
+				vscode.commands.executeCommand('progtutor.libPista2');
+			}
+		}else{
+			lineaError = linea;
+			contErrorConsec1 = 0;
+			contErrorConsec2 = 0;
+			modCodigo = false;
+			vscode.commands.executeCommand('progtutor.bloqPista1');
+			vscode.commands.executeCommand('progtutor.bloqPista2');
+		}
+		
+	}
+	
+}
+
 
 //aqui poner las funciones de prueba------------------------------------------------------------------------------------------
-function checkThemeStyle() {
-    // Obtenemos la configuración actual
-    const config = vscode.workspace.getConfiguration();
 
-    // Obtenemos el nombre del tema actual
-    const currentTheme = config.get<string>('workbench.colorTheme');
-	//vscode.window.showInformationMessage(`${currentTheme}`);
-    // Verificamos si el tema contiene la palabra "dark" o "light"
-    if (currentTheme && currentTheme.includes('Dark')) {
-        vscode.window.showInformationMessage(`OSCURO`);
-    } else {
-        vscode.window.showInformationMessage(`CLARO`);
-    }
-}
+
+	
+
 
 
 
