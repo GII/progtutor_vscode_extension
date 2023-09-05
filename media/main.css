@@ -2,55 +2,12 @@ body {
 	background-color: transparent;
 }
 
-.subTema {
-	margin-left: 40px; 
-	cursor: pointer; 
-	display: none;
-}
-
-.subTema:hover{
-	background-color: rgb(64, 64, 64); 	
-}
-
-.tema{
-	cursor: pointer;
-}
-
-.tema:hover{
-	background-color: rgb(64, 64, 64); 	
-}
-
-.footer {
-	margin-top: auto; 
-	height: 50px;
-	background-color: black;
-}
-
-.elemento-al-final {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	text-align: center;
-  }
-
 .iconoGrande{
 	width: 50px;
 	height: 50px;
 	margin:0px;
 	cursor: pointer;
 	padding: 0px;
-}
-
-.boton-desactivado {
-	background-color: rgb(1, 120, 212);
-	color: white;
-  }
-  
-.boton-desactivado:disabled {
-	background-color: rgb(40, 40, 40); 
-	color: rgb(64, 64, 64); 
-	cursor: not-allowed;
 }
 
 .btnTransp{
@@ -61,6 +18,16 @@ body {
 	width: 68px;
 	height: 87px;
 	margin-top: 20px;
+}
+
+.btnTransp:disabled{
+	flex-direction: column;
+	padding: 0px;
+	width: 68px;
+	height: 87px;
+	margin-top: 20px;
+	background-color: rgb(64, 64, 64);  
+	cursor: not-allowed;
 }
 
 .btnTransp:hover{
@@ -92,8 +59,6 @@ body {
 	cursor: not-allowed;
 }
 
-
-
 .btnTransp2:hover{
 	background-color: rgb(64, 64, 64); 	
 	padding: 0px;
@@ -118,5 +83,18 @@ body {
 	color: rgb(200, 202, 199);
 
 }
+
+@keyframes blink {
+	0%, 49.9%, 100% {
+	  background-color: transparent;
+	}
+	50%, 99.9% {
+	  background-color: red;
+	}
+  }
+  
+  .blinking {
+	animation: blink 0.5s infinite;
+  }
 
 

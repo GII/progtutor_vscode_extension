@@ -1,35 +1,38 @@
 
 import * as vscode from 'vscode';
-import * as moment from 'moment';
 import {escribirMetrica} from './dB';
 import {leerMetrica} from './dB';
 import {obtenerToken} from './dB';
 import {obtenerTema} from './dB';
+import {evualarCodigo} from './dB';
 import {WebPrincipal} from './webPrinc';
 import {WebBibliografia} from './webBiblig';
+import {WebProfesor} from './webProf';
 import {WebBibliog} from './bib/bibliog';
 import {getWebviewOptions} from './bib/bibliog';
 import * as fs from 'fs';
 
-
-let tiempoInicial: number = 0;
-let token = '';
-let curso = '';
-let bloque = '';
-let reto = '';
-const umbralTiempoInact = 300;
-const umbralPistaGPT = 2;
-const umbralPistaLinea = 4;
-let permisoLibPista1 = false;
-let permisoLibPista2 = false;
-let contErrorConsec1: number = 0;
-let contErrorConsec2: number = 0;
-const umbralCantError = 2;
-let modCodigo = false;
-let lineaError = 0;
+let lineaError: number = 0;
+	let tiempoInicial: number = 0;
+	const umbralTiempoInact: number = 5;
+	const umbralPistaGPT: number = 2;
+	const umbralPistaLinea: number = 4;
+	let permisoLibPista1: boolean = false;
+	let permisoLibPista2: boolean = false;
+	let contErrorConsec1: number = 0;
+	let contErrorConsec2: number = 0;
+	const umbralCantError = 2;
+	let nombreError: string = '';
+	let modCodigo: boolean = false;
 
 
 export function activate(this: any, context: vscode.ExtensionContext) {
+	
+	//declaracion de variables del programa----------------------------------------------------------------------------------------
+	const diagnosticos = vscode.languages.createDiagnosticCollection('python');
+	diagnosticos.clear();
+	
+	
 
 	//crea el webview donde se muestran los botones---------------------------------------------------------------------------------
 	const webPrinc = new WebPrincipal(context.extensionUri);
@@ -56,10 +59,46 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 			webPrinc.bloqPista2();
 		}));
 
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.execPista1', () => {
+			ejecutarPista1(diagnosticos);
+		}));
+	
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.execPista2', () => {
+			ejecutarPista2(diagnosticos, context);
+		}));
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.libEvaluar', () => {
+			webPrinc.libEvaluar();
+		}));
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.bloqEvaluar', () => {
+			webPrinc.bloqEvaluar();
+		}));
+	
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.Evaluar', async () => {
+			await evaluarCodigo();
+		}));
+	
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.respDuda',async () => {
+			await dudaResuelta();
+		}));
+
 	const webBib = new WebBibliografia(context.extensionUri);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(WebBibliografia.viewType, webBib));
+	
+	const webProff = new WebProfesor(context.extensionUri);
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider(WebProfesor.viewType, webProff));
 
+	
+		
 	//evento que se activa cada vez que se modifica el fichero python.py-----------------------------------------------------------
 	context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => {		
         if (event.document === vscode.window.activeTextEditor?.document) {
@@ -69,12 +108,15 @@ export function activate(this: any, context: vscode.ExtensionContext) {
     }));
 
 	//comando para ejecutar el archivo python--------------------------------------------------------------------------------------
-	const diagnosticos = vscode.languages.createDiagnosticCollection('python');
-	diagnosticos.clear();
 	context.subscriptions.push(
-		vscode.commands.registerCommand('progtutor.ejecutarArchivo', () => {
-			ejecutar(diagnosticos, context);
-	}));
+		vscode.commands.registerCommand('progtutor.ejecutarArchivo', async () => {
+			try {
+				ejecutar(diagnosticos, context);
+			  } catch (error) {
+				vscode.window.showErrorMessage(`Debe cargar un reto primero`);
+			  }
+		})
+	);
 
 	//comando para abrir una página web en VsCode--------------------------------------------------------------------------------
 	context.subscriptions.push(
@@ -94,15 +136,17 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 
 	//comando para pedirle a UNITY los datos del usuario-----------------------------------------------------------------------------
 	context.subscriptions.push(
-		vscode.commands.registerCommand('progtutor.comUnity', () => {
-			cargarDatosUsuario();
-	}));
+		vscode.commands.registerCommand('progtutor.comUnity', async () => {
+			const [token, curso, bloque, reto] = await cargarDatosUsuario();
+		})
+	);
 
 	//comando para refescar la página principal---------------------------------------------------------------------------------------
 	context.subscriptions.push(
-		vscode.commands.registerCommand('progtutor.refrecar', () => {
-			cargarDatosUsuario();
-	}));
+		vscode.commands.registerCommand('progtutor.refrecar', async () => {
+			const [token, curso, bloque, reto] = await cargarDatosUsuario();
+		})
+	  );
 
 	
 
@@ -116,44 +160,36 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 
 
 //se cargan los datos de token, curso y reto----------------------------------------------------------------------------------------------------
-function cargarDatosUsuario(){
-	obtenerToken()
-	.then((response: { data: any; }) => {
-		if(response.data.code === 200){
-			token = response.data.data.userAuthToken;
-			obtenerTema()
-			.then((response: { data: any; }) => {
-				curso = response.data.data.challenge.CourseId;
-				bloque = response.data.data.challenge.BlockId;
-				reto = response.data.data.challenge.ChallengeId;
-				vscode.window.showInformationMessage(`Datos de Usuario cargados correctamente`);
-			})
-			.catch((error: any) => {
-				vscode.window.showInformationMessage(`Antes de ejecutar debe cargar un reto`);
-			});
-			}
-    })
-	.catch((error: any) => {
-		vscode.window.showInformationMessage(`Primero debe abrir el simulador y loguearse`);
-	});
-}
+async function cargarDatosUsuario(): Promise<[string, string, string, string]> {
+	try {
+	  const responseToken = await obtenerToken();
+	  
+	  if (responseToken.data.code !== 200) {
+		vscode.window.showErrorMessage('Debe abrir primero el simulador y cargar un reto');
+	  }
+	  
+	  const token = responseToken.data.data.userAuthToken;
+	  const responseTema = await obtenerTema();
+	  const curso = responseTema.data.data.challenge.CourseId;
+	  const bloque = responseTema.data.data.challenge.BlockId;
+	  const reto = responseTema.data.data.challenge.ChallengeId;
+	  
+	  return [token, curso, bloque, reto];
+	} catch (error) {
+		vscode.window.showErrorMessage('Debe abrir primero el simulador y cargar un reto');
+		return ['', '', '', ''];
+	}
+  }
 
 //se cargan los datos del reto y se ejecuta el archivo------------------------------------------------------------------------------------------
-function ejecutar(diagnosticos: any, context: vscode.ExtensionContext){
+async function ejecutar(diagnosticos: any, context: vscode.ExtensionContext){
+	diagnosticos.clear();
+	const [token, curso, bloque, reto] = await cargarDatosUsuario();
 	if(reto === ''){
-		vscode.window.showInformationMessage(`Debe actualizar la página`);
+		vscode.window.showInformationMessage(`No tiene ningún reto seleccionado`);
 	}
 	else{
-		obtenerTema()
-		.then((response: { data: any; }) => {
-			curso = response.data.data.challenge.CourseId;
-			bloque = response.data.data.challenge.BlockId;
-			reto = response.data.data.challenge.ChallengeId;
-			ejecutarArchivo(diagnosticos, context);
-		})
-		.catch((error: any) => {
-			vscode.window.showInformationMessage(`Antes de ejecutar debe cargar un reto`);
-		});
+		ejecutarArchivo(diagnosticos, context);
 	}
 }
 
@@ -182,44 +218,59 @@ function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionContext){
 }
 
 //hace todo el procesamiento de los datos y revisa el texto---------------------------------------------------------------------------------------
-function revisarTexto(intervalo: any, editor: any, diagnosticos: any, context: vscode.ExtensionContext) {
+async function revisarTexto(intervalo: any, editor: any, diagnosticos: any, context: vscode.ExtensionContext){
 	const terminal = vscode.window.activeTerminal;
 	let miString: string = "";
-	let resultado = false;
 	
 	if (terminal) {
-		 vscode.commands.executeCommand('workbench.action.terminal.selectAll');
-		 vscode.commands.executeCommand('editor.action.clipboardCopyAction');
-		 vscode.env.clipboard.readText().then((texto) => {
-			miString = texto.toString();
-			const finalizado = buscarFinalTerminal(miString);
-			if(finalizado === true){
-				clearInterval(intervalo);
-				if(miString.search("Error") !== -1){
-					tratarError(miString, editor, diagnosticos, context);
-				}else{
-					vscode.window.showInformationMessage(`¡NO HAY ERROR!`);
-				}
-			}
-		  });
-		 vscode.env.clipboard.writeText('');
+	  vscode.commands.executeCommand('workbench.action.terminal.selectAll');
+	  vscode.commands.executeCommand('editor.action.clipboardCopyAction');
+	  
+	  const texto = await vscode.env.clipboard.readText();
+	  miString = texto.toString();
+  
+	  const finalizado = buscarFinalTerminal(miString);
+  
+	  if (finalizado === true) {
+		clearInterval(intervalo);
+  
+		if (miString.search("Error") !== -1) {
+			await tratarError(miString, editor, diagnosticos, context);
+		} else {
+			vscode.window.showInformationMessage(`¡NO HAY ERROR!`);
+			vscode.commands.executeCommand('progtutor.libEvaluar');
+			diagnosticos.clear();
+		}
+	  }
+	  
+	  await vscode.env.clipboard.writeText('');
 	}
 }
 
-//se busca si el terminal ha finalizado su ejecución----------------------------------------------------------------------------------------------
-function buscarFinalTerminal(texto: string) :boolean{
-	const palabra = "PS";
-	let finalizado = false;
-	const regex = new RegExp('\\b' + palabra + '\\b', 'gi');
-	const coincidencias = texto.match(regex);
-	if(coincidencias?.length === 3){
-		finalizado = true;
+//tratamiento del error, guardado en base de datos-------------------------------------------------------------------------------------
+async function tratarError(miString: string, editor: any, diagnosticos: any, context: vscode.ExtensionContext) {
+	try {
+	  let [mensajeError, ubicacionError, nombreError] = obtenerError(miString);
+	  mostrarPistas(ubicacionError);
+	  const codMod = guardarTipoError(nombreError);
+	  
+	  const [token, curso, bloque, reto] = await cargarDatosUsuario();
+	  mostrarDiagnostico(bloque, mensajeError, ubicacionError - 1, editor, diagnosticos, context);
+  
+	  const responseLeerMetrica = await leerMetrica(token, curso, bloque, reto);
+	  const datos = crearDatosGuardar(responseLeerMetrica.data, codMod);
+  
+	  const responseEscribirMetrica = await escribirMetrica(token, curso, bloque, reto, datos);
+	  if (responseEscribirMetrica.data.code !== 200) {
+		vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+	  }
+	} catch (error) {
+	  vscode.window.showErrorMessage(`${error}`);
 	}
-	return finalizado;
-}
+  }
 
 //se obtiene el codigo del error y la explicación-------------------------------------------------------------------------------------------------
-function obtenerError(msgError: string) :[string, number, any, string]{
+function obtenerError(msgError: string) :[string, number, string]{
 	const resultado: string[] = msgError.split(/[ \n,]+/);	   
 	let n1 = -1;
 	let n2 = -1;
@@ -248,27 +299,36 @@ function obtenerError(msgError: string) :[string, number, any, string]{
 		error = error + " " + resultado[i] + " ";
 	}
 
-	const fechaHora = moment().format('YYYY-MM-DD HH:mm:ss');
-	return [error, linea, fechaHora, codigoError];
+	return [error, linea, codigoError];
+}
+
+//se busca si el terminal ha finalizado su ejecución----------------------------------------------------------------------------------------------
+function buscarFinalTerminal(texto: string) :boolean{
+	const palabra = "PS";
+	let finalizado = false;
+	const regex = new RegExp('\\b' + palabra + '\\b', 'gi');
+	const coincidencias = texto.match(regex);
+	if(coincidencias?.length === 2){
+		finalizado = true;
+	}
+	return finalizado;
 }
 
 //se crea una ventana de diagnostico con el mensaje a mostrar-------------------------------------------------------------------------------------
-function mostrarDiagnostico(mensaje: string, linea: number, editor: any, diagnosticos: any, context: vscode.ExtensionContext){
+async function mostrarDiagnostico(bloque: string, mensaje: string, linea: number, editor: any, diagnosticos: any, context: vscode.ExtensionContext){
 	const lineaCodigo = editor.document.lineAt(linea);
     const texto = lineaCodigo.text;
 	let columna = texto.length + 1;
 	const bloqueId = parseInt(bloque, 10);
 	if(bloqueId <= umbralPistaGPT){
-		explicacionError(mensaje, context)
-		.then((data) => {
-			mensajeDiagnostico(data, linea, editor, diagnosticos, columna);
-	});
+		const mensajeGPT = await leerExplicGPT(mensaje, context);
+		mensajeDiagnostico(mensajeGPT, linea, editor, diagnosticos, columna);
 	}else if(bloqueId > umbralPistaGPT && bloqueId <= umbralPistaLinea){
 		permisoLibPista2 = true;
 		mensajeDiagnostico(mensaje, linea, editor, diagnosticos, columna);
 	}else{
 		permisoLibPista1 = true;
-		permisoLibPista2 = true;;
+		permisoLibPista2 = true;
 		diagnosticos.clear();
 	}	
 }
@@ -280,26 +340,9 @@ function mensajeDiagnostico(mensaje: string, linea: number, editor: any, diagnos
 	diagnosticos.set(editor.document.uri, [diag]);
 }
 
-//tratamiento del error, guardado en base de datos-------------------------------------------------------------------------------------
-function tratarError(miString: string, editor: any, diagnosticos: any, context: vscode.ExtensionContext){
-	const [mensaje, linea, fechaHora, codigoError] = obtenerError(miString);
-	mostrarPistas(linea);
-	mostrarDiagnostico(mensaje, linea - 1, editor, diagnosticos, context);
-	const codMod = guardarTipoError(codigoError);
-	leerMetrica(token, curso, bloque, reto)
-	.then((response: { data: any; }) => {
-		let datos = crearDatosGuardar(response.data, codMod);
-		escribirMetrica(token, curso, bloque, reto, datos)
-		.then((response: { data: any; }) => {
-		if (response.data.code !== 200){
-			vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
-		}
-		});
-	});
-}
-
 //captura el tiempo de inactividad en pantalla y todas las métricas de tiempo---------------------------------------------------------
 function tiempoInactividad(){
+	vscode.commands.executeCommand('progtutor.bloqEvaluar');
 	const tiempo = new Date();
 	if(tiempoInicial === 0){
 		tiempoInicial = (tiempo.getHours() * 3600) + (tiempo.getMinutes() * 60) + tiempo.getSeconds();
@@ -315,12 +358,13 @@ function tiempoInactividad(){
 }
 
 //tratamiento de los tiempos y guardado en la base de datos---------------------------------------------------------------------------
-function tratarTiempos(tiempoTrans: number){
-	leerMetrica(token, curso, bloque, reto)
-	.then((response: { data: any; }) => {
-		let cantPausas = response.data.data.pauseCount + 1;
-		let tiempoTotal = response.data.data.totalTime + tiempoTrans;
-		let tiempoMin = response.data.data.minTime;
+async function tratarTiempos(tiempoTrans: number){
+	try{
+		const [token, curso, bloque, reto] = await cargarDatosUsuario();
+		const responseLeerMetrica = await leerMetrica(token, curso, bloque, reto);
+		let cantPausas = responseLeerMetrica.data.data.pauseCount + 1;
+		let tiempoTotal = responseLeerMetrica.data.data.totalTime + tiempoTrans;
+		let tiempoMin = responseLeerMetrica.data.data.minTime;
 		if(tiempoMin === 0){
 			tiempoMin = tiempoTrans;
 		}else{
@@ -328,7 +372,7 @@ function tratarTiempos(tiempoTrans: number){
 				tiempoMin = tiempoTrans;
 			}
 		}
-		let tiempoMax = response.data.data.maxTime;
+		let tiempoMax = responseLeerMetrica.data.data.maxTime;
 		if(tiempoMax < tiempoTrans){
 			tiempoMax = tiempoTrans;
 		}
@@ -339,13 +383,13 @@ function tratarTiempos(tiempoTrans: number){
 		datos['minTime'] = tiempoMin;
 		datos['maxTime'] = tiempoMax;
 		datos['avgTime'] = tiempoMedio;
-		escribirMetrica(token, curso, bloque, reto, datos)
-		.then((response: { data: any; }) => {
-		if (response.data.code !== 200){
+		const responseEscribirMetrica = await escribirMetrica(token, curso, bloque, reto, datos);
+		if (responseEscribirMetrica.data.code !== 200){
 			vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
 		}
-		});
-	});
+	}catch(error){
+		vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+	}
 }
 
 //convierte el codigo de error en uno apto para guardar en la BD----------------------------------------------------------------------
@@ -366,11 +410,10 @@ function crearDatosGuardar(resp: any, codMod: string): any{
 }
 
 //muestra el mensaje creado por chat gpt-----------------------------------------------------------------------------------------------
-function explicacionError(mensaje: string, context: vscode.ExtensionContext) :Promise<string>{
+async function leerExplicGPT(mensaje: string, context: vscode.ExtensionContext) :Promise<string>{
 	const tipoError = mensaje.split(":")[0].trim();
 	const nom = vscode.Uri.file(context.extensionPath + '/media/' + tipoError + '.txt');
 	const dir = nom.fsPath;
-	//const nombreArchivo = 'C:/Javier/ProgTutor/Repositorio/progtutor_vscode_extension/media/' + tipoError + '.txt';
 	return new Promise((resolve, reject) => {
 		fs.readFile(dir, 'utf8', (err, data) => {
 		  if (err) {
@@ -402,9 +445,11 @@ function mostrarPistas(linea: number){
 			if(contErrorConsec1 > umbralCantError){
 				vscode.commands.executeCommand('progtutor.libPista1');
 				vscode.commands.executeCommand('progtutor.libPista2');
+				vscode.window.showInformationMessage(`Veo que no encuentras la solución, tienes libre una pista para usar`);
 			}
 			if(contErrorConsec2 > umbralCantError){
 				vscode.commands.executeCommand('progtutor.libPista2');
+				vscode.window.showInformationMessage(`Veo que no encuentras la solución, tienes libre una pista para usar`);
 			}
 		}else{
 			lineaError = linea;
@@ -419,10 +464,76 @@ function mostrarPistas(linea: number){
 	
 }
 
+//obtiene el mensaje de la pista y la ubicación---------------------------------------------------------------------------------------
+async function mensajePista() :Promise<[string, number, number, any]> {
+	const terminal = vscode.window.activeTerminal;
+	let miString: string = "";
+	
+	if (terminal) {
+	  vscode.commands.executeCommand('workbench.action.terminal.selectAll');
+	  vscode.commands.executeCommand('editor.action.clipboardCopyAction');
+	  
+	  const texto = await vscode.env.clipboard.readText();
+	  miString = texto.toString();
+	  await vscode.env.clipboard.writeText('');
+	}
+
+	const [mensajeError, ubicacionError, nombreError] = obtenerError(miString);
+	const editor = vscode.window.activeTextEditor;
+	if (!editor) {
+	  return ['',0,0,''];
+	}
+	const lineaCodigo = editor.document.lineAt(ubicacionError - 1);
+    const texto = lineaCodigo.text;
+	let columna = texto.length + 1;
+	return [mensajeError, ubicacionError, columna, editor]
+}
+
+//ejecuta la pista 1 mostrando el mensaje reducido-------------------------------------------------------------------------------------
+async function ejecutarPista1(diagnosticos: any){
+	const [mensajeError, ubicacionError, columna, editor] = await mensajePista();
+	mensajeDiagnostico(mensajeError, ubicacionError-1, editor, diagnosticos, columna);
+}
+
+//ejecuta la pista 2 mostrando el mensaje ampliado-------------------------------------------------------------------------------------
+async function ejecutarPista2(diagnosticos: any, context: vscode.ExtensionContext){
+	const [mensajeError, ubicacionError, columna, editor] = await mensajePista();
+	const mensajeGPT = await leerExplicGPT(mensajeError, context);
+	mensajeDiagnostico(mensajeGPT, ubicacionError-1, editor, diagnosticos, columna);
+}
+
+//se actualiza la metrica cada vez que el profesor resuelve una duda-------------------------------------------------------------------
+async function dudaResuelta(){
+	const [token, curso, bloque, reto] = await cargarDatosUsuario();
+	const responseLeerMetrica = await leerMetrica(token, curso, bloque, reto);
+	const datos: any = {};
+	datos['solvedDoubtCount'] = responseLeerMetrica.data.data.solvedDoubtCount + 1;
+
+	const responseEscribirMetrica = await escribirMetrica(token, curso, bloque, reto, datos);
+	if (responseEscribirMetrica.data.code !== 200) {
+		vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+	}
+}
 
 //aqui poner las funciones de prueba------------------------------------------------------------------------------------------
+async function evaluarCodigo() {
+	const editor = vscode.window.activeTextEditor;
+	if (editor) {
+		const textoGuardado = editor.document.getText().replace(/\n/g, '\\n');
+		const [token, curso, bloque, reto] = await cargarDatosUsuario();
+		vscode.window.showErrorMessage('hASTA AQUI BIEN');
+		const responseEscribirMetrica = await evualarCodigo(token, curso, bloque, reto, textoGuardado);
+		if (responseEscribirMetrica.data.code !== 200) {
+			vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+		}
+		if (responseEscribirMetrica.data.code === 200) {
+			vscode.window.showErrorMessage('DATOS COPIADOS CORRECTAMENTE.');
+		}
 
-
+		}else {
+		vscode.window.showErrorMessage('No hay un editor activo.');
+	}
+  }
 	
 
 

@@ -33,4 +33,16 @@ export function obtenerTema(){
     return axios.get(url);
 }
 
+export function evualarCodigo(token, curso, bloque, reto, datos){
+    const options = {
+        headers: {
+            'accept': 'application/json',
+            'x-access-token': token, 
+            'Content-Type': 'application/json',
+        }        
+    };
+    const urlDB = 'http://10.113.36.13:4001/api/metrics/challenge/' + curso + '/' + bloque + '/' + reto + '/code';   
+    return axios.post(urlDB, datos, options);
+}
+
 

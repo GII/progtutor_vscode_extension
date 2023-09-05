@@ -53,6 +53,15 @@ body {
 	margin-left: 40px; 
 	cursor: pointer; 
 	display: none;
+	color: whitesmoke;
+}
+
+.subTema:disabled {
+	margin-left: 40px; 
+	cursor: pointer; 
+	display: none;
+	cursor: not-allowed;
+	color:  rgb(103, 103, 103); 
 }
 
 .subTema:hover{
@@ -61,6 +70,12 @@ body {
 
 .tema{
 	cursor: pointer;
+	color: whitesmoke;
+}
+
+.tema:disabled {
+	cursor: not-allowed;
+	color:  rgb(103, 103, 103); 
 }
 
 .tema:hover{

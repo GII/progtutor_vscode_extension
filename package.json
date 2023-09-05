@@ -32,6 +32,11 @@
           "type": "webview",
           "id": "progtutor.bibliog",
           "name": "Bibliografía"
+        },
+        {
+          "type": "webview",
+          "id": "progtutor.profesor",
+          "name": "Profesor"
         }
       ]
     },
@@ -70,6 +75,36 @@
 				"command": "progtutor.bloqPista2",
 				"category": "Principal",
 				"title": "Bloqueo Pista 2"
+			},
+      {
+				"command": "progtutor.execPista1",
+				"category": "Principal",
+				"title": "Ejecutar Pista 1"
+			},
+      {
+				"command": "progtutor.execPista2",
+				"category": "Principal",
+				"title": "Ejecutar Pista 2"
+			},
+      {
+				"command": "progtutor.Evaluar",
+				"category": "Principal",
+				"title": "Mandar a evaluar"
+			},
+      {
+				"command": "progtutor.libEvaluar",
+				"category": "Principal",
+				"title": "Libero Evaluar"
+			},
+      {
+				"command": "progtutor.bloqEvaluar",
+				"category": "Principal",
+				"title": "Bloque Evaluar"
+			},
+      {
+				"command": "progtutor.respDuda",
+				"category": "Profesor",
+				"title": "Duda Resuelta"
 			},
       {
         "command": "progtutor.refrecar",

@@ -36,11 +36,14 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 					vscode.commands.executeCommand('progtutor.comUnity');
 					vscode.window.showInformationMessage(`Página actualizada`);
 					break;
-				case 'pistauno':
-					vscode.window.showInformationMessage(`Ejecuta pista 1`);
+				case 'ejecutarPista1':
+					vscode.commands.executeCommand('progtutor.execPista1');
 					break;
-				case 'pistados':
-					vscode.window.showInformationMessage(`Ejecuta pista 2`);
+				case 'ejecutarPista2':
+					vscode.commands.executeCommand('progtutor.execPista2');
+					break;
+				case 'eval':
+					vscode.commands.executeCommand('progtutor.Evaluar');
 					break;
 			}
 		});
@@ -71,6 +74,20 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 		if (this._view) {
 			this._view.show?.(true);
 			this._view.webview.postMessage({ type: 'bloqPista2' });
+		}
+	}
+
+	public libEvaluar() {
+		if (this._view) {
+			this._view.show?.(true);
+			this._view.webview.postMessage({ type: 'libEvaluar' });
+		}
+	}
+
+	public bloqEvaluar() {
+		if (this._view) {
+			this._view.show?.(true);
+			this._view.webview.postMessage({ type: 'bloqEvaluar' });
 		}
 	}
 
@@ -156,7 +173,7 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 						</div>	
 						<div class="col-6">
 							<div class="text-center">
-								<button id="btn.evaluar" class = "btnTransp"><img src="${iconEval}" class="iconoGrande">EVALUAR EJERCICIO</button>
+								<button id="btn.evaluar" class = "btnTransp" disabled><img src="${iconEval}" class="iconoGrande">EVALUAR EJERCICIO</button>
 							</div>
 						</div>														
 					</div>
