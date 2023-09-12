@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import {aumentarMetrica} from './extension';
 
 export class WebBibliografia implements vscode.WebviewViewProvider {
 	
@@ -27,10 +28,12 @@ export class WebBibliografia implements vscode.WebviewViewProvider {
 		webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
 		
 		//aqui va el codigo al presionar un boton del webview
-		  webviewView.webview.onDidReceiveMessage(message => {
+		  webviewView.webview.onDidReceiveMessage(async message => {
 			switch (message.command) {
-				case 'cargarTema11':
-					vscode.commands.executeCommand('progtutor.abrirWeb');
+				case 'cargarEnlace':
+					vscode.env.openExternal(vscode.Uri.parse(message.url));
+					const metrica = 'documentationCheckCount';
+			        await aumentarMetrica(metrica);
 				break;
 			}
 		  });

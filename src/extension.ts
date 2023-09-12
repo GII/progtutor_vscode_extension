@@ -8,22 +8,20 @@ import {evualarCodigo} from './dB';
 import {WebPrincipal} from './webPrinc';
 import {WebBibliografia} from './webBiblig';
 import {WebProfesor} from './webProf';
-import {WebBibliog} from './bib/bibliog';
-import {getWebviewOptions} from './bib/bibliog';
 import * as fs from 'fs';
 
 let lineaError: number = 0;
-	let tiempoInicial: number = 0;
-	const umbralTiempoInact: number = 5;
-	const umbralPistaGPT: number = 2;
-	const umbralPistaLinea: number = 4;
-	let permisoLibPista1: boolean = false;
-	let permisoLibPista2: boolean = false;
-	let contErrorConsec1: number = 0;
-	let contErrorConsec2: number = 0;
-	const umbralCantError = 2;
-	let nombreError: string = '';
-	let modCodigo: boolean = false;
+let tiempoInicial: number = 0;
+const umbralTiempoInact: number = 5;
+const umbralPistaGPT: number = 2;
+const umbralPistaLinea: number = 4;
+let permisoLibPista1: boolean = false;
+let permisoLibPista2: boolean = false;
+let contErrorConsec1: number = 0;
+let contErrorConsec2: number = 0;
+const umbralCantError = 2;
+let nombreError: string = ''; 
+let modCodigo: boolean = false;
 
 
 export function activate(this: any, context: vscode.ExtensionContext) {
@@ -60,12 +58,16 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 		}));
 
 	context.subscriptions.push(
-		vscode.commands.registerCommand('progtutor.execPista1', () => {
+		vscode.commands.registerCommand('progtutor.execPista1', async () => {
+			const metrica = 'editorHintCount';
+			await aumentarMetrica(metrica);
 			ejecutarPista1(diagnosticos);
 		}));
 	
 	context.subscriptions.push(
-		vscode.commands.registerCommand('progtutor.execPista2', () => {
+		vscode.commands.registerCommand('progtutor.execPista2', async () => {
+			const metrica = 'editorHintCount';
+			await aumentarMetrica(metrica);
 			ejecutarPista2(diagnosticos, context);
 		}));
 
@@ -86,7 +88,8 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(
 		vscode.commands.registerCommand('progtutor.respDuda',async () => {
-			await dudaResuelta();
+			const metrica = 'solvedDoubtCount';
+			await aumentarMetrica(metrica);
 		}));
 
 	const webBib = new WebBibliografia(context.extensionUri);
@@ -117,22 +120,6 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 			  }
 		})
 	);
-
-	//comando para abrir una página web en VsCode--------------------------------------------------------------------------------
-	context.subscriptions.push(
-		vscode.commands.registerCommand('progtutor.abrirWeb', () => {
-			WebBibliog.createOrShow(context.extensionUri);
-		}));
-
-	if (vscode.window.registerWebviewPanelSerializer) {
-		vscode.window.registerWebviewPanelSerializer(WebBibliog.viewType, {
-			async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: any) {
-				console.log(`Got state: ${state}`);
-				webviewPanel.webview.options = getWebviewOptions(context.extensionUri);
-				WebBibliog.revive(webviewPanel, context.extensionUri);
-			}
-		});
-	}
 
 	//comando para pedirle a UNITY los datos del usuario-----------------------------------------------------------------------------
 	context.subscriptions.push(
@@ -503,11 +490,12 @@ async function ejecutarPista2(diagnosticos: any, context: vscode.ExtensionContex
 }
 
 //se actualiza la metrica cada vez que el profesor resuelve una duda-------------------------------------------------------------------
-async function dudaResuelta(){
+export async function aumentarMetrica(metrica: string){
 	const [token, curso, bloque, reto] = await cargarDatosUsuario();
 	const responseLeerMetrica = await leerMetrica(token, curso, bloque, reto);
 	const datos: any = {};
-	datos['solvedDoubtCount'] = responseLeerMetrica.data.data.solvedDoubtCount + 1;
+	//datos['solvedDoubtCount'] = responseLeerMetrica.data.data.solvedDoubtCount + 1;
+	datos[metrica] = responseLeerMetrica.data.data[metrica] + 1;
 
 	const responseEscribirMetrica = await escribirMetrica(token, curso, bloque, reto, datos);
 	if (responseEscribirMetrica.data.code !== 200) {
@@ -515,25 +503,44 @@ async function dudaResuelta(){
 	}
 }
 
-//aqui poner las funciones de prueba------------------------------------------------------------------------------------------
 async function evaluarCodigo() {
 	const editor = vscode.window.activeTextEditor;
 	if (editor) {
-		const textoGuardado = editor.document.getText().replace(/\n/g, '\\n');
+		const dato: any = {};
+		const textoGuardado = editor.document.getText().replace(/\n/g, '\n');
+		dato['submittedCode'] = textoGuardado;
 		const [token, curso, bloque, reto] = await cargarDatosUsuario();
-		vscode.window.showErrorMessage('hASTA AQUI BIEN');
-		const responseEscribirMetrica = await evualarCodigo(token, curso, bloque, reto, textoGuardado);
+		const responseEscribirMetrica = await evualarCodigo(token, curso, bloque, reto, dato);
 		if (responseEscribirMetrica.data.code !== 200) {
 			vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
 		}
 		if (responseEscribirMetrica.data.code === 200) {
-			vscode.window.showErrorMessage('DATOS COPIADOS CORRECTAMENTE.');
+			vscode.window.showInformationMessage('DATOS COPIADOS CORRECTAMENTE.');
 		}
 
 		}else {
 		vscode.window.showErrorMessage('No hay un editor activo.');
 	}
   }
+
+//aqui poner las funciones de prueba------------------------------------------------------------------------------------------
+
+
+
+
+async function revisionBibliog(){
+	const [token, curso, bloque, reto] = await cargarDatosUsuario();
+
+	const responseLeerMetrica = await leerMetrica(token, curso, bloque, reto);
+	let cant = responseLeerMetrica.data.documentationCheckCount + 1;
+	const datos: any = {};
+	datos['documentationCheckCount'] = cant;
+
+	const responseEscribirMetrica = await escribirMetrica(token, curso, bloque, reto, datos);
+	if (responseEscribirMetrica.data.code !== 200) {
+		vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+	}
+}
 	
 
 
