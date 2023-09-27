@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import {aumentarMetrica} from './extension';
+import { WorkMetric } from './classWorkMetric';
 
 export class WebBibliografia implements vscode.WebviewViewProvider {
 	
@@ -33,7 +33,7 @@ export class WebBibliografia implements vscode.WebviewViewProvider {
 				case 'cargarEnlace':
 					vscode.env.openExternal(vscode.Uri.parse(message.url));
 					const metrica = 'documentationCheckCount';
-			        await aumentarMetrica(metrica);
+			        await WorkMetric.aumentarMetrica(metrica);
 				break;
 			}
 		  });
