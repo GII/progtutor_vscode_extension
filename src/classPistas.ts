@@ -127,7 +127,13 @@ export class PistasVS {
                 vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
             }
             if (responseEscribirMetrica.data.code === 200) {
-                vscode.window.showInformationMessage('DATOS COPIADOS CORRECTAMENTE.');
+                const respondeEvaluacion = await ComunicacionDB.mandarEvaluar();
+                if(respondeEvaluacion.data.code === 200){
+                    vscode.window.showInformationMessage('EVALUACIÓN EN CURSO, REVISE EL SIMULADOR PARA MÁS DETALLES.');
+                }else{
+                    vscode.window.showErrorMessage('ERROR AL REALIZAR LA EVALUACIÓN');
+                }
+
             }
     
             }else {

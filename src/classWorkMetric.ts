@@ -26,6 +26,7 @@ export class WorkMetric{
             if (miString.search("Error") !== -1) {
                 await this.tratarError(miString, editor, diagnosticos, context);
             } else {
+                this.cantEjecucion()
                 vscode.window.showInformationMessage(`¡NO HAY ERROR!`);
                 vscode.commands.executeCommand('progtutor.libEvaluar');
                 diagnosticos.clear();
@@ -36,23 +37,38 @@ export class WorkMetric{
         }
     }
 
-    //tratamiento del error, guardado en base de datos-------------------------------------------------------------------------------------
-    static async tratarError(miString: string, editor: any, diagnosticos: any, context: vscode.ExtensionContext) {
-        try {
-        let [mensajeError, ubicacionError, nombreError] = this.obtenerError(miString);
-        PistasVS.mostrarPistas(ubicacionError);
-        const codMod = this.guardarTipoError(nombreError);
-        
+    //se guarda una metrica donde se tienen la cantidad de veces que se ejecutó el programa sin error-------------------------------------
+    static async cantEjecucion(){
         const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
-        PistasVS.mostrarDiagnostico(bloque, mensajeError, ubicacionError - 1, editor, diagnosticos, context);
-    
         const responseLeerMetrica = await ComunicacionDB.leerMetrica(token, curso, bloque, reto);
-        const datos = this.crearDatosGuardar(responseLeerMetrica.data, codMod);
-    
+        let cantEjecucion = responseLeerMetrica.data.data.executionCount;
+        cantEjecucion = cantEjecucion + 1
+        const datos: any = {};
+        datos['executionCount'] = cantEjecucion;
         const responseEscribirMetrica = await ComunicacionDB.escribirMetrica(token, curso, bloque, reto, datos);
         if (responseEscribirMetrica.data.code !== 200) {
             vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
         }
+
+    }
+
+    //tratamiento del error, guardado en base de datos-------------------------------------------------------------------------------------
+    static async tratarError(miString: string, editor: any, diagnosticos: any, context: vscode.ExtensionContext) {
+        try {
+            let [mensajeError, ubicacionError, nombreError] = this.obtenerError(miString);
+            PistasVS.mostrarPistas(ubicacionError);
+            const codMod = this.guardarTipoError(nombreError);
+            
+            const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
+            PistasVS.mostrarDiagnostico(bloque, mensajeError, ubicacionError - 1, editor, diagnosticos, context);
+        
+            const responseLeerMetrica = await ComunicacionDB.leerMetrica(token, curso, bloque, reto);
+            const datos = this.crearDatosGuardar(responseLeerMetrica.data, codMod);
+        
+            const responseEscribirMetrica = await ComunicacionDB.escribirMetrica(token, curso, bloque, reto, datos);
+            if (responseEscribirMetrica.data.code !== 200) {
+                vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+            }
         } catch (error) {
         vscode.window.showErrorMessage(`${error}`);
         }

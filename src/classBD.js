@@ -2,6 +2,9 @@ const axios = require ('axios');
 import * as vscode from 'vscode';
 
 export class ComunicacionDB{
+    static dirAPI = "http://10.113.36.13:4001/api/";
+    //static dirAPI = "https://progtutor.citic.udc.es/api/";
+    static dirLOCAL = "http://localhost:2727/api/"
 
     static leerMetrica(token, curso, bloque, reto){
         const options = {
@@ -9,9 +12,10 @@ export class ComunicacionDB{
                 'x-access-token': token,   
             }
         };
-        const urlDB = 'http://10.113.36.13:4001/api/metrics/challenge/' + curso + '/' + bloque + '/' + reto + '/metrics';       
+        const urlDB = `${ComunicacionDB.dirAPI}metrics/challenge/${curso}/${bloque}/${reto}/metrics`;    
         return axios.get(urlDB, options);
     }
+    
     
     static escribirMetrica(token, curso, bloque, reto, datos){
         const options = {
@@ -20,17 +24,22 @@ export class ComunicacionDB{
                 'Content-Type': 'application/json', 
             }        
         };
-        const urlDB = 'http://10.113.36.13:4001/api/metrics/challenge/' + curso + '/' + bloque + '/' + reto + '/metrics';   
+        const urlDB = `${ComunicacionDB.dirAPI}metrics/challenge/${curso}/${bloque}/${reto}/metrics`; 
         return axios.put(urlDB, datos, options);
     }
 
     static obtenerToken(){
-        const url = 'http://localhost:2727/api/token';
+        const url = `${ComunicacionDB.dirLOCAL}token`;
         return axios.get(url);
     }
     
     static obtenerTema(){
-        const url = 'http://localhost:2727/api/challenge';
+        const url = `${ComunicacionDB.dirLOCAL}challenge`;
+        return axios.get(url);
+    }
+
+    static mandarEvaluar(){
+        const url = `${ComunicacionDB.dirLOCAL}evaluation`;
         return axios.get(url);
     }
     
@@ -42,7 +51,7 @@ export class ComunicacionDB{
                 'Content-Type': 'application/json',
             }        
         };
-        const urlDB = 'http://10.113.36.13:4001/api/metrics/challenge/' + curso + '/' + bloque + '/' + reto + '/code';   
+        const urlDB = `${ComunicacionDB.dirAPI}metrics/challenge/${curso}/${bloque}/${reto}/code`; 
         return axios.post(urlDB, datos, options);
     }
 
