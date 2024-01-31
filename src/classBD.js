@@ -2,9 +2,16 @@ const axios = require ('axios');
 import * as vscode from 'vscode';
 
 export class ComunicacionDB{
-    static dirAPI = "http://10.113.36.13:4001/api/";
-    //static dirAPI = "https://progtutor.citic.udc.es/api/";
     static dirLOCAL = "http://localhost:2727/api/"
+
+    static publicDomain = "progtutor.citic.udc.es"
+
+    static getAPIUrl(){
+        var loc = window.location;
+        var host = loc.host.split(':')[0];
+        if (host != this.publicDomain) host += ":4001"
+        return loc.protocol + "//" + host + "/api/";
+    }
 
     static leerMetrica(token, curso, bloque, reto){
         const options = {
@@ -12,7 +19,7 @@ export class ComunicacionDB{
                 'x-access-token': token,   
             }
         };
-        const urlDB = `${ComunicacionDB.dirAPI}metrics/challenge/${curso}/${bloque}/${reto}/metrics`;    
+        const urlDB = `${ComunicacionDB.getAPIUrl()}metrics/challenge/${curso}/${bloque}/${reto}/metrics`;    
         return axios.get(urlDB, options);
     }
     
@@ -24,7 +31,7 @@ export class ComunicacionDB{
                 'Content-Type': 'application/json', 
             }        
         };
-        const urlDB = `${ComunicacionDB.dirAPI}metrics/challenge/${curso}/${bloque}/${reto}/metrics`; 
+        const urlDB = `${ComunicacionDB.getAPIUrl()}metrics/challenge/${curso}/${bloque}/${reto}/metrics`; 
         return axios.put(urlDB, datos, options);
     }
 
@@ -51,7 +58,7 @@ export class ComunicacionDB{
                 'Content-Type': 'application/json',
             }        
         };
-        const urlDB = `${ComunicacionDB.dirAPI}metrics/challenge/${curso}/${bloque}/${reto}/code`; 
+        const urlDB = `${ComunicacionDB.getAPIUrl()}metrics/challenge/${curso}/${bloque}/${reto}/code`; 
         return axios.post(urlDB, datos, options);
     }
 
