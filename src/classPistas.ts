@@ -131,7 +131,7 @@ export class PistasVS {
                 if(respondeEvaluacion.data.code === 200){
                     vscode.window.showInformationMessage('EVALUACIÓN EN CURSO, REVISE EL SIMULADOR PARA MÁS DETALLES.');
                 }else{
-                    vscode.window.showErrorMessage('ERROR AL REALIZAR LA EVALUACIÓN');
+                    vscode.window.showErrorMessage('ERROR, Debe estar en la página inicial para realizar la evaluación');
                 }
 
             }

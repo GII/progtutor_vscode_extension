@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 
 export class ComunicacionDB{
     static dirLOCAL = "http://localhost:2727/api/"
+    static dirAPI = "https://progtutor.citic.udc.es/api/";
 
     static publicDomain = "progtutor.citic.udc.es"
 
@@ -19,7 +20,7 @@ export class ComunicacionDB{
                 'x-access-token': token,   
             }
         };
-        const urlDB = `${ComunicacionDB.getAPIUrl()}metrics/challenge/${curso}/${bloque}/${reto}/metrics`;    
+        const urlDB = `${ComunicacionDB.dirAPI}metrics/challenge/${curso}/${bloque}/${reto}/metrics`;    
         return axios.get(urlDB, options);
     }
     
@@ -31,7 +32,7 @@ export class ComunicacionDB{
                 'Content-Type': 'application/json', 
             }        
         };
-        const urlDB = `${ComunicacionDB.getAPIUrl()}metrics/challenge/${curso}/${bloque}/${reto}/metrics`; 
+        const urlDB = `${ComunicacionDB.dirAPI}metrics/challenge/${curso}/${bloque}/${reto}/metrics`; 
         return axios.put(urlDB, datos, options);
     }
 
@@ -58,7 +59,7 @@ export class ComunicacionDB{
                 'Content-Type': 'application/json',
             }        
         };
-        const urlDB = `${ComunicacionDB.getAPIUrl()}metrics/challenge/${curso}/${bloque}/${reto}/code`; 
+        const urlDB = `${ComunicacionDB.dirAPI}metrics/challenge/${curso}/${bloque}/${reto}/code`; 
         return axios.post(urlDB, datos, options);
     }
 
