@@ -9,6 +9,7 @@ import { GlobalVar } from './globalVar';
 import { PistasVS } from './classPistas';
 import { WorkMetric } from './classWorkMetric';
 import { ComunicacionDB } from './classBD';
+import * as os from 'os';
 
 
 
@@ -156,7 +157,15 @@ function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionContext){
 	const pythonFilePath = editor.document.fileName;
 
 	const terminal = vscode.window.createTerminal({ name: 'Terminal ProgTutor' });
-	terminal.sendText(`python "${pythonFilePath}"`);
+
+	const platform = os.platform();
+	if (platform === "win32"){
+		terminal.sendText(`python "${pythonFilePath}"`);
+	}else if(platform === "linux"){
+		terminal.sendText(`/bin/python3 "${pythonFilePath}"`);
+	}else{
+		terminal.sendText(`python3 "${pythonFilePath}"`);
+	}
     terminal.show();
 
 	const intervalo = setInterval(() => {

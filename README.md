@@ -1,25 +1,20 @@
 # progtutor_vscode_extension README
 
-dsfgdshgfnjghmnb   s ydf shtry w4yh yt6 dfb rst7ghntr l t yhtr ikjr7i 
 
 ## Features
 
- dtyikj6er kmdghj 67ee htrdtyu  yuk 7urt u i j 67 xd bs iuñ lghh uk uyrmhj kuyuku 
 
 ## Requirements
 
- dytuk uy gjhgufir hgfa4rs 6 ghj l l,yufjydrtu 7y jyujmk yt7uut
 
 ## Extension Settings
 
- dtrsuh skggnmhhyde kt76bmy l kt bvfh4t6ry r6y t34er gvb h
 
 * `myExtension.enable`: Enable/disable this extension.
 * `myExtension.thing`: Set to `blah` to do something.
 
 ## Known Issues
 
-Ch rtue56ury6h5e u3cvg tjtyj re5ergfbkujgfbyjtju
 
 ## Release Notes
 

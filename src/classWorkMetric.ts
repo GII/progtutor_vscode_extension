@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { PistasVS } from './classPistas';
 import { ComunicacionDB } from './classBD';
 import { GlobalVar } from './globalVar';
+import * as os from 'os';
 
 
 export class WorkMetric{
@@ -109,11 +110,36 @@ export class WorkMetric{
 
     //se busca si el terminal ha finalizado su ejecución----------------------------------------------------------------------------------------------
     private static buscarFinalTerminal(texto: string) :boolean{
-        const palabra = "PS";
+        let coincidencias: any;
+        const platform = os.platform();
         let finalizado = false;
-        const regex = new RegExp('\\b' + palabra + '\\b', 'gi');
-        const coincidencias = texto.match(regex);
-        if(coincidencias?.length === 2){
+        let cantidad = 0
+        
+        if (platform === "win32"){
+            const regex = new RegExp('\\b' + "PS" + '\\b', 'gi');
+            coincidencias = texto.match(regex);
+            cantidad = coincidencias?.length;
+
+        }else if (platform === "linux"){
+            const listaPalabras = texto.trim().split(/\s+/);
+
+            let contador = 0;
+            for (const palabra of listaPalabras) {
+                if (palabra.includes('@') && palabra.includes(':') && palabra.includes('~')) {
+                    contador++;
+                }
+            }
+            cantidad = contador;
+            
+        }else{
+            const listaPalabras = texto.trim().split(/\s+/);
+            const ultima = listaPalabras[listaPalabras.length - 1];
+            if(ultima === '%'){
+                cantidad = 2;
+            }
+        }
+        
+        if(cantidad === 2){
             finalizado = true;
         }
         return finalizado;

@@ -10,6 +10,10 @@ body {
 	padding: 0px;
 }
 
+button:disabled .iconoGrande {
+    cursor: not-allowed;
+}
+
 .btnTransp{
 	flex-direction: column;
 	background-color: transparent;
@@ -70,6 +74,10 @@ body {
     cursor: pointer;
     padding: 0;
     margin-right: 15px;
+}
+
+button:disabled .iconoGrande2 {
+    cursor: not-allowed;
 }
 
 .hr {
