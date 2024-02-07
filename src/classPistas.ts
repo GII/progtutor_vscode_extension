@@ -123,26 +123,36 @@ export class PistasVS {
             dato['submittedCode'] = textoGuardado;
             const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
             const responseEscribirMetrica = await ComunicacionDB.escribirCodigo(token, curso, bloque, reto, dato);
-            //vscode.window.showErrorMessage('Se guardó el código en base de datos');
             if (responseEscribirMetrica.data.code !== 200) {
-                vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+                vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS');
             }
             if (responseEscribirMetrica.data.code === 200) {
-                //vscode.window.showErrorMessage('Se manda a evaluar');
-                const respondeEvaluacion = await ComunicacionDB.mandarEvaluar();
-                //vscode.window.showErrorMessage('Se obtiene una respuesta de la evaluación');
-                if(respondeEvaluacion.data.code === 200){
-                    vscode.window.showInformationMessage('EVALUACIÓN EN CURSO, REVISE EL SIMULADOR PARA MÁS DETALLES.');
-                }else{
-                    vscode.window.showErrorMessage('ERROR, Debe estar en la página inicial para realizar la evaluación');
+                try{
+                    const respondeEvaluacion = await ComunicacionDB.mandarEvaluar();
+                    if(respondeEvaluacion.data.code === 200){
+                        vscode.window.showInformationMessage('EVALUACIÓN EN CURSO, REVISE EL SIMULADOR PARA MÁS DETALLES');
+                    }
+                }catch(error: any){
+                    vscode.window.showErrorMessage('ERROR, DEBE ESTAR FUERA DEL MUNDO PARA EVALUAR');
+                    
                 }
-
-            }
-    
-            }else {
+            }   
+        }else {
             vscode.window.showErrorMessage('No hay un editor activo.');
-        }
-      }
+        }        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

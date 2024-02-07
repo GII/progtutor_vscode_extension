@@ -1,5 +1,6 @@
 body {
 	background-color: transparent;
+	
 }
 
 .iconoGrande{
@@ -9,6 +10,7 @@ body {
 	cursor: pointer;
 	padding: 0px;
 }
+
 
 button:disabled .iconoGrande {
     cursor: not-allowed;
@@ -22,6 +24,7 @@ button:disabled .iconoGrande {
 	width: 68px;
 	height: 87px;
 	margin-top: 20px;
+	color: black;
 }
 
 .btnTransp:disabled{
@@ -30,12 +33,12 @@ button:disabled .iconoGrande {
 	width: 68px;
 	height: 87px;
 	margin-top: 20px;
-	background-color: rgb(64, 64, 64);  
+	background-color: rgba(64, 64, 64, 0.137);  
 	cursor: not-allowed;
 }
 
 .btnTransp:hover{
-	background-color: rgb(64, 64, 64); 	
+	background-color: rgb(64, 64, 64, 0.137); 	
 	padding: 0px;
 }
 
@@ -49,6 +52,7 @@ button:disabled .iconoGrande {
     height: 50px;
     margin-top: 20px;
 	text-align: start;
+	color: black;
 }
 
 .btnTransp2:disabled{
@@ -59,12 +63,12 @@ button:disabled .iconoGrande {
     height: 50px;
     margin-top: 20px;
 	text-align: start;
-	background-color: rgb(64, 64, 64);  
+	background-color: rgb(64, 64, 64, 0.137);  
 	cursor: not-allowed;
 }
 
 .btnTransp2:hover{
-	background-color: rgb(64, 64, 64); 	
+	background-color: rgb(64, 64, 64, 0.137); 	
 	padding: 0px;
 }
 
@@ -82,14 +86,17 @@ button:disabled .iconoGrande2 {
 
 .hr {
 	border: none;
-	border-top: 2px solid white; 
+	border-top: 2px solid black; 
 	margin: 0;
 }
 
 .pista{
 	margin-top:50px;
-	color: rgb(200, 202, 199);
+	color: black;
+}
 
+.botonPista{
+	color: black;
 }
 
 @keyframes blink {

@@ -44,18 +44,20 @@ export class WebProfesor implements vscode.WebviewViewProvider {
 
 		const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'reset.css'));
 		const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'vscode.css'));
-		const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.css'));
 		const styleBootstrapUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'bootstrap.css'));
 		const styleBootstrapGridUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'bootstrap-grid.css'));
 
 		let iconMano: any;
+		let styleMainUri: any;
 
 		const config = vscode.workspace.getConfiguration();
 		const currentTheme = config.get<string>('workbench.colorTheme');
 		if (currentTheme && currentTheme.includes('Dark')) {
 			iconMano = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'mano.png'));
+			styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'mainDark.css'))
 		} else {
 			iconMano = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'mano.png'));
+			styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'mainLight.css'))
 		}
 		
 		const nonce = getNonce();

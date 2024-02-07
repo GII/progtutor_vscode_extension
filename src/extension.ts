@@ -4,7 +4,6 @@ import * as vscode from 'vscode';
 import {WebPrincipal} from './webPrinc';
 import {WebBibliografia} from './webBiblig';
 import {WebProfesor} from './webProf';
-
 import { GlobalVar } from './globalVar';
 import { PistasVS } from './classPistas';
 import { WorkMetric } from './classWorkMetric';
@@ -143,7 +142,7 @@ async function ejecutar(diagnosticos: any, context: vscode.ExtensionContext){
 }
 
 //se ejecuta el archivo python en un terminal nuevo y se hace todo el proceso para capturar el error---------------------------------------------
-function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionContext){
+async function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionContext){
 	const editor = vscode.window.activeTextEditor;
 	if (!editor) {
 	  return;
@@ -154,6 +153,7 @@ function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionContext){
 	  return;
 	}
 
+	await editor.document.save();
 	const pythonFilePath = editor.document.fileName;
 
 	const terminal = vscode.window.createTerminal({ name: 'Terminal ProgTutor' });

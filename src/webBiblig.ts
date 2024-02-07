@@ -47,21 +47,23 @@ export class WebBibliografia implements vscode.WebviewViewProvider {
 
 		const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'reset.css'));
 		const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'vscode.css'));
-		const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'mainBibliog.css'));
 		const styleBootstrapUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'bootstrap.css'));
 		const styleBootstrapGridUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'bootstrap-grid.css'));
 
 		let iconMas: any;
 		let iconMenos: any;
+		let styleMainUri: any;
 
 		const config = vscode.workspace.getConfiguration();
 		const currentTheme = config.get<string>('workbench.colorTheme');
 		if (currentTheme && currentTheme.includes('Dark')) {
 			iconMas = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'mas.png'));
 			iconMenos = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'menos.png'));
+			styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'mainBibliogDark.css'));
 		} else {
 			iconMas = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'mas.png'));
 			iconMenos = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'menos.png'));
+			styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'mainBibliogLigth.css'));
 		}
 		
 		const nonce = getNonce();

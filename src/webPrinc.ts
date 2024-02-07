@@ -100,7 +100,7 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 
 		const styleResetUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'reset.css'));
 		const styleVSCodeUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'vscode.css'));
-		const styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'main.css'));
+		;
 		const styleBootstrapUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'bootstrap.css'));
 		const styleBootstrapGridUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'bootstrap-grid.css'));
 
@@ -109,18 +109,23 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 		let iconPlay: any;
 		let iconEval: any;
 		let iconPista: any;
+		let styleMainUri: any;
 
 		const config = vscode.workspace.getConfiguration();
 		const currentTheme = config.get<string>('workbench.colorTheme');
-		if (currentTheme && currentTheme.includes('Dark')) {
+		if (currentTheme && currentTheme.includes('Dark')) {			
 			iconPlay = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'play.png'));
 			iconEval = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'evaluar.png'));
 			iconPista = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'pista.png'));
+			styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'mainDark.css'))
 		} else {
 			iconPlay = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'play.png'));
 			iconEval = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'evaluar.png'));
 			iconPista = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'pista.png'));
+			styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'mainLight.css'))
 		}
+
+
 
 
 		return codigoHtml(styleBootstrapUri, styleBootstrapGridUri,
@@ -177,7 +182,7 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 							</div>
 						</div>														
 					</div>
-					<p class="pista">PISTAS</p>
+					<p id="etiqueta" class="pista">PISTAS</p>
 					<hr class="hr">
 
 					<div class="row">
@@ -187,10 +192,10 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 									<div class="col-5"><img src="${iconPista}" class="iconoGrande2"></div>
 									<div class="col-7" style="padding:0px;">
 										<div  class="row" >
-											<p style="color: rgb(200, 202, 199);">PISTA 1</p>
+											<p class="botonPista">PISTA 1</p>
 										</div>
 										<div  class="row">
-											<p style="color: rgb(200, 202, 199);">Ubicación del error</p>
+											<p class="botonPista">Ubicación del error</p>
 										</div>
 									</div>
 								</div>
@@ -205,10 +210,10 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 									<div class="col-5"><img src="${iconPista}" class="iconoGrande2"></div>
 									<div class="col-7" style="padding:0px;">
 										<div  class="row" >
-											<p style="color: rgb(200, 202, 199);">PISTA 2</p>
+											<p class="botonPista">PISTA 2</p>
 										</div>
 										<div  class="row">
-											<p style="color: rgb(200, 202, 199);">Explicación del error</p>
+											<p class="botonPista">Explicación del error</p>
 										</div>
 									</div>
 								</div>

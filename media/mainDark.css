@@ -1,0 +1,113 @@
+body {
+	background-color: transparent;
+	
+}
+
+.iconoGrande{
+	width: 50px;
+	height: 50px;
+	margin:0px;
+	cursor: pointer;
+	padding: 0px;
+}
+
+button:disabled .iconoGrande {
+    cursor: not-allowed;
+}
+
+.btnTransp{
+	flex-direction: column;
+	background-color: transparent;
+	cursor: pointer;
+	padding: 0px;
+	width: 68px;
+	height: 87px;
+	margin-top: 20px;
+}
+
+.btnTransp:disabled{
+	flex-direction: column;
+	padding: 0px;
+	width: 68px;
+	height: 87px;
+	margin-top: 20px;
+	background-color: rgb(64, 64, 64);  
+	cursor: not-allowed;
+}
+
+.btnTransp:hover{
+	background-color: rgb(64, 64, 64); 	
+	padding: 0px;
+}
+
+.btnTransp2{
+	display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+    height: 50px;
+    margin-top: 20px;
+	text-align: start;
+}
+
+.btnTransp2:disabled{
+	display: flex;
+    align-items: center;
+    border: none;
+    padding: 0px;
+    height: 50px;
+    margin-top: 20px;
+	text-align: start;
+	background-color: rgb(64, 64, 64);  
+	cursor: not-allowed;
+}
+
+.btnTransp2:hover{
+	background-color: rgb(64, 64, 64); 	
+	padding: 0px;
+}
+
+.iconoGrande2{
+	width: 50px;
+    height: 50px;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 15px;
+}
+
+button:disabled .iconoGrande2 {
+    cursor: not-allowed;
+}
+
+.hr {
+	border: none;
+	border-top: 2px solid white; 
+	margin: 0;
+}
+
+.pista{
+	margin-top:50px;
+	color: rgb(200, 202, 199);
+
+}
+
+.botonPista{
+	color: rgb(200, 202, 199);
+}
+
+@keyframes blink {
+	0%, 49.9%, 100% {
+	  background-color: transparent;
+	}
+	50%, 99.9% {
+	  background-color: red;
+	}
+  }
+  
+  .blinking {
+	animation: blink 0.5s infinite;
+  }
+
+
