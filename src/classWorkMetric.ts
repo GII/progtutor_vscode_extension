@@ -153,10 +153,19 @@ export class WorkMetric{
     }
 
     public static mensajeDiagnostico(mensaje: string, linea: number, editor: any, diagnosticos: any, columna: number){
-        vscode.window.showErrorMessage(`TIENE UN ERROR EN LA LÍNEA ${linea + 1}, REVISE EL CÓDIGO`);
+        //vscode.window.showErrorMessage(`TIENE UN ERROR EN LA LÍNEA ${linea + 1}, REVISE EL CÓDIGO`);
+        this.mostrarMensajeConBotones(linea)
         const range = new vscode.Range(new vscode.Position(linea, 0), new vscode.Position(linea, columna));
         const diag = new vscode.Diagnostic(range, mensaje, vscode.DiagnosticSeverity.Error);
         diagnosticos.set(editor.document.uri, [diag]);
+    }
+
+    static async mostrarMensajeConBotones(linea: number) {
+        const respuesta = await vscode.window.showErrorMessage(`TIENE UN ERROR EN LA LÍNEA ${linea + 1}, REVISE EL CÓDIGO`, { modal: false }, "Ver", "Cancelar");
+    
+        if (respuesta === "Ver") {
+            vscode.commands.executeCommand('editor.action.marker.next');
+        }
     }
 
     //crea un nuevo dato del objeto para guardar en la BD el codigo de Error-------------------------------------------------------------

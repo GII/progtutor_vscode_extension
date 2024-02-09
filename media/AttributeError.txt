@@ -1,5 +1,2 @@
-Un AttributeError es un error que ocurre cuando intentas acceder o usar un 
-atributo o método que no existe para un objeto o tipo de dato en particular.
-Este error ocurre típicamente cuando referencias erróneamente un atributo o método que no está definido o está mal escrito.
-Es importante tener en cuenta que los atributos y métodos son específicos de objetos y tipos de datos, por lo que no todos los atributos o métodos estarán disponibles para cada objeto o tipo de dato.
-Para solucionar este error, debes asegurarte de estar referenciando el atributo o método correcto para el objeto o tipo de dato específico con el que estás trabajando.
+Intentas acceder a un atributo o método que no existe. 
+Revisa que el atributo o método que estás usando esté bien escrito

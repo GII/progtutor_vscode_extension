@@ -1,4 +1,5 @@
-IndentationError es un error común en Python que ocurre cuando hay un problema con la indentación del código.
-La indentación es crucial en Python ya que determina la estructura y jerarquía del código.
-Python utiliza la indentación para definir bloques de código, como bucles, funciones y declaraciones condicionales.
-Un IndentationError ocurre típicamente cuando hay una discrepancia en el nivel de indentación, como mezclar tabulaciones y espacios, o uso inconsistente de espacios.
+La indentación de tu código no es correcta. 
+Revisa que la línea de código esté al nivel de 
+indentación adecuado, analizando las tabulaciones 
+y espacios que hayas usado, y el nivel lógico al 
+que debe ir (dentro de un bucle, condicional, función, etc)

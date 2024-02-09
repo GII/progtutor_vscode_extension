@@ -1,7 +1,4 @@
-Un ValueError es un error que ocurre cuando una función recibe un argumento del tipo correcto, pero con un valor inválido.
-Indica que la entrada proporcionada a la función no es aceptable y no puede ser procesada.
-Las causas comunes de un ValueError incluyen:
-	* Intentar convertir una cadena a un tipo numérico (por ejemplo, int o float) cuando la cadena contiene caracteres no numéricos.
-	* Proporcionar un argumento que está fuera del rango o dominio aceptable para una función u operación específica.
-	* Pasar un tipo de dato incorrecto a una función que espera un tipo diferente.
-	* Usar un formato o sintaxis incorrectos al proporcionar entrada a una función.
+Intentas pasarle a una función una variable con 
+el tipo de dato correcto pero con un valor inválido. 
+Revisa que el valor que le pasas a la función 
+esté dentro del rango correcto.

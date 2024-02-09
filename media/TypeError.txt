@@ -1,4 +1,4 @@
-Un TypeError es un error que ocurre cuando intentas realizar una operación en un tipo de dato que no es compatible con esa operación.
-Normalmente ocurre cuando mezclas diferentes tipos de datos o cuando intentas usar una función o método en un objeto que no lo soporta.
-Los mensajes de TypeError a menudo proporcionan información adicional sobre la causa específica del error, como el número de línea donde ocurrió el error y los tipos de objetos involucrados.
-Para solucionar un TypeError, debes identificar el tipo de dato o la operación incorrecta que está causando el error y realizar los cambios necesarios para garantizar la compatibilidad.
+Intentas hacer operaciones entre dos variables de 
+diferente tipo (ejemplo, entre un int y un string). 
+Revisa que las variables que intervienen en la 
+operación son las correctas.

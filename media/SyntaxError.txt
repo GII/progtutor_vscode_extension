@@ -1,4 +1,3 @@
-Un SyntaxError es un error que ocurre cuando el intérprete de Python encuentra código que viola las reglas de sintaxis del lenguaje.
-Significa que hay un error en la forma en que se ha escrito el código, como un carácter faltante o mal ubicado, una indentación incorrecta o el uso incorrecto de una palabra clave reservada.
-Los SyntaxErrors suelen ser fáciles de solucionar una vez que entiendes lo que te está diciendo el mensaje de error.
-Para resolver un SyntaxError, revisa cuidadosamente el código alrededor del número de línea mencionado en el mensaje de error y busca cualquier error obvio o error tipográfico.
+Falta algún carácter en este línea de código o está 
+mal escrito. Revisa cuidadosamente esta línea de 
+código en busca de un error de escritura de algún carácter.

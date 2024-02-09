@@ -50,14 +50,14 @@ body {
   }
 
 .subTema {
-	margin-left: 40px; 
+	margin-left: 0px; 
 	cursor: pointer; 
 	display: none;
 	color: whitesmoke;
 }
 
 .subTema:disabled {
-	margin-left: 40px; 
+	margin-left: 0px; 
 	cursor: pointer; 
 	display: none;
 	cursor: not-allowed;
@@ -68,12 +68,52 @@ body {
 	background-color: rgb(64, 64, 64); 	
 }
 
+.subTema2 {
+	margin-left: 35px; 
+	cursor: pointer; 
+	display: none;
+	color: whitesmoke;
+}
+
+.subTema2:disabled {
+	margin-left: 35px; 
+	cursor: pointer; 
+	display: none;
+	cursor: not-allowed;
+	color:  rgb(103, 103, 103); 
+}
+
+.subTema2:hover{
+	background-color: rgb(64, 64, 64); 	
+}
+
+.subTemaPrinc {
+	margin-left: 15px; 
+	cursor: pointer; 
+	display: none;
+	color: whitesmoke;
+}
+
+.subTemaPrinc:disabled {
+	margin-left: 15px; 
+	cursor: pointer; 
+	display: none;
+	cursor: not-allowed;
+	color:  rgb(103, 103, 103); 
+}
+
+.subTemaPrinc:hover{
+	background-color: rgb(64, 64, 64); 	
+}
+
 .tema{
+	margin-left: -20px;
 	cursor: pointer;
 	color: whitesmoke;
 }
 
 .tema:disabled {
+	margin-left: -20px;
 	cursor: not-allowed;
 	color:  rgb(103, 103, 103); 
 }

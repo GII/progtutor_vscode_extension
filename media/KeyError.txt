@@ -1,4 +1,3 @@
-Un KeyError es un error que ocurre cuando intentas acceder a una clave en un diccionario que no existe.
-Es un error común que los principiantes encuentran al trabajar con diccionarios en Python.
-El mensaje de error se genera para indicar que la clave que estás intentando acceder no está presente en el diccionario.
-Para solucionar este error, debes asegurarte de que la clave que estás intentando acceder realmente existe en el diccionario.
+Intentas acceder a una clave de diccionario que no existe. 
+Revisa que el nombre de la clave sea el correcto y 
+pertenezca al diccionario al que haces referencia
