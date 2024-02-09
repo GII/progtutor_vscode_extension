@@ -8,6 +8,9 @@ function tema0(){
   const tema04 = document.getElementById('tema0.4');
   const tema05 = document.getElementById('tema0.5');
   const tema06 = document.getElementById('tema0.6');
+  const tema07 = document.getElementById('tema0.7');
+  const tema08 = document.getElementById('tema0.8');
+  const tema09 = document.getElementById('tema0.9');
 
   txtClase2.style.display = 'none';
 
@@ -20,6 +23,9 @@ function tema0(){
     tema04.style.display = 'block';
     tema05.style.display = 'block';
     tema06.style.display = 'block';
+    tema07.style.display = 'block';
+    tema08.style.display = 'block';
+    tema09.style.display = 'block';
   });
 
   txtClase2.addEventListener('click', () => {
@@ -31,52 +37,76 @@ function tema0(){
     tema04.style.display = 'none';
     tema05.style.display = 'none';
     tema06.style.display = 'none';
+    tema07.style.display = 'none';
+    tema08.style.display = 'none';
+    tema09.style.display = 'none';
   });
 
-  tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06);
+  tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09);
 }
 
-function tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06){
+function tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09){
 
 tema01.addEventListener('click', () => {
   vscode.postMessage({
     command: 'cargarEnlace',
-    url: 'https://pythones.net/que-es-python-y-sus-caracteristicas/'
+    url: 'https://gii.github.io/python-nb-online/00-intro.html'
   });
 });
 
 tema02.addEventListener('click', () => {
   vscode.postMessage({
     command: 'cargarEnlace',
-    url: 'https://pythones.net/instalando-python-3-que-es-un-ide/'
+    url: 'https://gii.github.io/python-nb-online/01-entrada-salida.html'
   });
 });
 
 tema03.addEventListener('click', () => {
   vscode.postMessage({
     command: 'cargarEnlace',
-    url: 'https://pythones.net/operadores-basicos-en-python/'
+    url: 'https://gii.github.io/python-nb-online/02-condicionales.html'
   });
 });
 
 tema04.addEventListener('click', () => {
   vscode.postMessage({
     command: 'cargarEnlace',
-    url: 'https://pythones.net/variables-que-son-tipos-de-variables-y-funcion-print-type/'
+    url: 'https://gii.github.io/python-nb-online/03-sentencias-iterativas-I.html'
   });
 });
 
 tema05.addEventListener('click', () => {
   vscode.postMessage({
     command: 'cargarEnlace',
-    url: 'https://pythones.net/sintaxis-basica-del-lenguaje/'
+    url: 'https://gii.github.io/python-nb-online/04-sentencias-iterativas-II.html'
   });
 });
 
 tema06.addEventListener('click', () => {
   vscode.postMessage({
     command: 'cargarEnlace',
-    url: 'https://pythones.net/que-es-python-y-sus-caracteristicas/'
+    url: 'https://gii.github.io/python-nb-online/05-funciones-I.html'
+  });
+});
+
+tema07.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/python-nb-online/05-funciones-II.html'
+  });
+});
+
+tema08.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: ''
+  });
+});
+
+tema09.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: ''
   });
 });
 
