@@ -1,5 +1,6 @@
 
 function tema0(){
+  const txtRobobo = document.getElementById('txtRobobo');
   const txtClase = document.getElementById('txtClase');
   const txtClase2 = document.getElementById('txtClase2');
   const tema01 = document.getElementById('tema0.1');
@@ -42,10 +43,10 @@ function tema0(){
     tema09.style.display = 'none';
   });
 
-  tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09);
+  tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09, txtRobobo);
 }
 
-function tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09){
+function tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09, txtRobobo){
 
 tema01.addEventListener('click', () => {
   vscode.postMessage({
@@ -107,6 +108,13 @@ tema09.addEventListener('click', () => {
   vscode.postMessage({
     command: 'cargarEnlace',
     url: ''
+  });
+});
+
+txtRobobo.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://progtutor.citic.udc.es/docs/manual_programacion_robobo_python.pdf'
   });
 });
 

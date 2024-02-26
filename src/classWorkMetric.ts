@@ -11,6 +11,8 @@ export class WorkMetric{
     static async revisarTexto(intervalo: any, editor: any, diagnosticos: any, context: vscode.ExtensionContext){
         const terminal = vscode.window.activeTerminal;
         let miString: string = "";
+        let finalizado: boolean = false;
+        let conection: boolean = false;
         
         if (terminal) {
         vscode.commands.executeCommand('workbench.action.terminal.selectAll');
@@ -19,17 +21,18 @@ export class WorkMetric{
         const texto = await vscode.env.clipboard.readText();
         miString = texto.toString();
     
-        const finalizado = this.buscarFinalTerminal(miString);
+        [finalizado, miString, conection]= this.buscarFinalTerminal(miString);
     
         if (finalizado === true) {
             clearInterval(intervalo);
-    
-            if (miString.search("Error") !== -1) {
+            if (miString.search("Error") !== -1 || miString.search("Traceback") !== -1) {
                 await this.tratarError(miString, editor, diagnosticos, context);
             } else {
-                this.cantEjecucion()
-                vscode.window.showInformationMessage(`¡NO HAY ERROR!`);
-                vscode.commands.executeCommand('progtutor.libEvaluar');
+                if(conection !== true){
+                    this.cantEjecucion();
+                    vscode.window.showInformationMessage(`¡NO HAY ERROR!`);
+                    vscode.commands.executeCommand('progtutor.libEvaluar');
+                }
                 diagnosticos.clear();
             }
         }
@@ -71,13 +74,14 @@ export class WorkMetric{
                 vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
             }
         } catch (error) {
-        vscode.window.showErrorMessage(`${error}`);
+            vscode.window.showErrorMessage(`${error}`);
         }
     }
 
     //se obtiene el codigo del error y la explicación-------------------------------------------------------------------------------------------------
     public static obtenerError(msgError: string) :[string, number, string]{
-        const resultado: string[] = msgError.split(/[ \n,]+/);	   
+        const resultado: string[] = msgError.split(/[ \n,]+/);	 
+        const listaLineas: number[] = [];
         let n1 = -1;
         let n2 = -1;
         let valor = 5;
@@ -90,11 +94,12 @@ export class WorkMetric{
             n2 = resultado[i].search("line");
             if(n1 !== -1){
                 valor = i;
-                codigoError = resultado[i].slice(0, resultado[i].length - 1);;
+                codigoError = resultado[i].slice(0, resultado[i].length - 1);
             }
 
             if(n2 !== -1){
                 linea = parseInt(resultado[i + 1]);
+                listaLineas.push(linea)
             }
         }
 
@@ -105,44 +110,57 @@ export class WorkMetric{
             error = error + " " + resultado[i] + " ";
         }
 
+        if(msgError.search("robobopy")){
+            linea = Math.min(...listaLineas);
+        }
+
         return [error, linea, codigoError];
     }
 
     //se busca si el terminal ha finalizado su ejecución----------------------------------------------------------------------------------------------
-    private static buscarFinalTerminal(texto: string) :boolean{
+    private static buscarFinalTerminal(texto: string) :[boolean, string, boolean]{
         let coincidencias: any;
         const platform = os.platform();
         let finalizado = false;
-        let cantidad = 0
-        
-        if (platform === "win32"){
-            const regex = new RegExp('\\b' + "PS" + '\\b', 'gi');
-            coincidencias = texto.match(regex);
-            cantidad = coincidencias?.length;
+        let cantidad = 0;
+        const msgConexion = "Error: Establish connection before sending a message";
+        let conection = false;
 
-        }else if (platform === "linux"){
-            const listaPalabras = texto.trim().split(/\s+/);
-
-            let contador = 0;
-            for (const palabra of listaPalabras) {
-                if (palabra.includes('@') && palabra.includes(':') && palabra.includes('~')) {
-                    contador++;
+        if(texto.includes(msgConexion)){
+            cantidad = 2;
+            vscode.window.showInformationMessage(`Revise que tenga el reto abierto o que la conexión con ROBOBO esté creada correctamente`);
+            texto = "msgConexion";
+            conection = true;
+        }else{
+            if (platform === "win32"){
+                const regex = new RegExp('\\b' + "PS" + '\\b', 'gi');
+                coincidencias = texto.match(regex);
+                cantidad = coincidencias?.length;
+    
+            }else if (platform === "linux"){
+                const listaPalabras = texto.trim().split(/\s+/);
+    
+                let contador = 0;
+                for (const palabra of listaPalabras) {
+                    if (palabra.includes('@') && palabra.includes(':') && palabra.includes('~')) {
+                        contador++;
+                    }
+                }
+                cantidad = contador;
+                
+            }else{
+                const listaPalabras = texto.trim().split(/\s+/);
+                const ultima = listaPalabras[listaPalabras.length - 1];
+                if(ultima === '%'){
+                    cantidad = 2;
                 }
             }
-            cantidad = contador;
-            
-        }else{
-            const listaPalabras = texto.trim().split(/\s+/);
-            const ultima = listaPalabras[listaPalabras.length - 1];
-            if(ultima === '%'){
-                cantidad = 2;
-            }
         }
-        
+
         if(cantidad === 2){
             finalizado = true;
         }
-        return finalizado;
+        return [finalizado, texto, conection];
     }
 
     //convierte el codigo de error en uno apto para guardar en la BD----------------------------------------------------------------------

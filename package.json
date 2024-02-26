@@ -1,11 +1,15 @@
 {
   "name": "progtutor",
   "displayName": "ProgTutor",
-  "description": "",
-  "version": "0.0.1",
+  "description": "Plugin desarrollado para trabajar con el simulador educativo ProgTutor",
+  "author": "Universidade Da Coruña",
+  "publisher": "Universidade Da Coruña",
+  "version": "1.0.0",
+  "icon": "media/logo.png",
   "engines": {
     "vscode": "^1.78.0"
   },
+
   "categories": [
     "Other"
   ],

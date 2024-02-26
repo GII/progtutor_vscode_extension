@@ -163,6 +163,8 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 							<p id="tema6.2" class="subTema2">Métodos del archivo</p>
 							<p id="tema6.3" class="subTema2">Modos de apertura</p>
 							<p id="tema6.4" class="subTema2">Estructura de trabajo</p>
+						
+						<div><p id="txtRobobo" class="tema"><img src="${iconMas}" class="icono">Métodos Robobo</p>
 					</div>
 				</div>
 
