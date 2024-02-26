@@ -32,6 +32,12 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 				case 'execute':
 					vscode.commands.executeCommand('progtutor.ejecutarArchivo');
 					break;
+				case 'salvar':
+					vscode.commands.executeCommand('progtutor.salvarArchivo');
+					break;
+				case 'descargar':
+					vscode.commands.executeCommand('progtutor.descargarArchivo');
+					break;
 				case 'actualizar':
 					vscode.commands.executeCommand('progtutor.comUnity');
 					vscode.window.showInformationMessage(`Página actualizada`);
@@ -109,6 +115,8 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 		let iconPlay: any;
 		let iconEval: any;
 		let iconPista: any;
+		let iconGuardar: any;
+		let iconDesc: any;
 		let styleMainUri: any;
 
 		const config = vscode.workspace.getConfiguration();
@@ -117,11 +125,15 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 			iconPlay = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'play.png'));
 			iconEval = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'evaluar.png'));
 			iconPista = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'pista.png'));
+			iconGuardar = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'guardar.png'));
+			iconDesc = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/dark', 'descargar.png'));
 			styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'mainDark.css'))
 		} else {
 			iconPlay = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'play.png'));
 			iconEval = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'evaluar.png'));
 			iconPista = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'pista.png'));
+			iconGuardar = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'guardar.png'));
+			iconDesc = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'resources/light', 'descargar.png'));
 			styleMainUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'media', 'mainLight.css'))
 		}
 
@@ -130,7 +142,7 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 
 		return codigoHtml(styleBootstrapUri, styleBootstrapGridUri,
 			styleResetUri, styleVSCodeUri, styleMainUri,
-			nonce, scriptUri, bootstrapScriptUri, iconPlay, iconEval, iconPista);
+			nonce, scriptUri, bootstrapScriptUri, iconPlay, iconEval, iconPista, iconGuardar, iconDesc);
 	}
 }
 
@@ -146,7 +158,7 @@ function getNonce() {
 
 function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 	styleResetUri: any, styleVSCodeUri: any, styleMainUri: any,
-	nonce: any, scriptUri: any, bootstrapScriptUri: any, iconPlay: any, iconEval: any, iconPista: any) {
+	nonce: any, scriptUri: any, bootstrapScriptUri: any, iconPlay: any, iconEval: any, iconPista: any, iconGuardar: any, iconDesc: any) {
 	const textoHtml = `<!DOCTYPE html>
 			<html lang="en">
 			<head>
@@ -182,6 +194,23 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 							</div>
 						</div>														
 					</div>
+
+					<div class="row">
+						<div class="col-6">
+							<div class="text-center">
+								<button id="btn.guardar" class = "btnTransp"><img src="${iconGuardar}" class="iconoGrande">GUARDAR EJERCICIO</button>
+							</div>
+						</div>	
+						<div class="col-6">
+							<div class="text-center">
+								<button id="btn.cargar" class = "btnTransp"><img src="${iconDesc}" class="iconoGrande">CARGAR EJERCICIO</button>
+							</div>
+						</div>														
+					</div>
+
+
+
+
 					<p id="etiqueta" class="pista">PISTAS</p>
 					<hr class="hr">
 

@@ -76,6 +76,17 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 		}));
 	
 	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.salvarArchivo', async () => {
+			await PistasVS.salvarCodigo();
+			vscode.window.showInformationMessage('ARCHIVO GUARDADO CORRECTAMENTE');
+		}));
+
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.descargarArchivo', async () => {
+			await PistasVS.cargarCodigo();
+		}));
+	
+	context.subscriptions.push(
 		vscode.commands.registerCommand('progtutor.respDuda',async () => {
 			const metrica = 'solvedDoubtCount';
 			await WorkMetric.aumentarMetrica(metrica);

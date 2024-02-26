@@ -7,6 +7,8 @@
   const ejecutar = document.getElementById('btn.ejecutar');
   const actualizar = document.getElementById('btn.actualizar');
   const evaluar = document.getElementById('btn.evaluar');
+  const guardar = document.getElementById('btn.guardar');
+  const cargar = document.getElementById('btn.cargar');
 
   function parpadeoPista1() {
     pista1.classList.add('blinking');
@@ -88,6 +90,20 @@
   ejecutar.addEventListener('click', () => {
     vscode.postMessage({
       command: 'execute'
+    });
+  });
+
+  //se ejecuta al presionar el boton de GUARDAR
+  guardar.addEventListener('click', () => {
+    vscode.postMessage({
+      command: 'salvar'
+    });
+  });
+
+  //se ejecuta al presionar el boton de CARGAR ARCHIVO
+  cargar.addEventListener('click', () => {
+    vscode.postMessage({
+      command: 'descargar'
     });
   });
 

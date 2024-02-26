@@ -51,6 +51,16 @@
         "title": "REVISAR"
       },
       {
+        "command": "progtutor.salvarArchivo",
+        "category": "ProgTutor: ",
+        "title": "REVISAR"
+      },
+      {
+        "command": "progtutor.descargarArchivo",
+        "category": "ProgTutor: ",
+        "title": "REVISAR"
+      },
+      {
         "command": "progtutor.abrirWeb",
         "category": "ProgTutor: ",
         "title": "Bibliografia"

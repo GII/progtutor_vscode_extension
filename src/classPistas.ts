@@ -142,6 +142,60 @@ export class PistasVS {
         }        
     }
 
+    public static async salvarCodigo(){
+        const editor = vscode.window.activeTextEditor;
+        if (editor) {
+            const dato: any = {};
+            const textoGuardado = editor.document.getText().replace(/\n/g, '\n');
+            dato['submittedCode'] = textoGuardado;
+            const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
+            const responseEscribirMetrica = await ComunicacionDB.escribirCodigo(token, curso, bloque, reto, dato);
+            if (responseEscribirMetrica.data.code !== 200) {
+                vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS');
+            }
+        }
+    }
+
+    public static async cargarCodigo(){
+        const respuesta = await vscode.window.showInformationMessage(`DESEA CARGAR EL CÓDIGO DEL ÚLTIMO RETO EJECUTADO`, { modal: false }, "SI", "NO");
+    
+        if (respuesta === "SI") {
+            const editor = vscode.window.activeTextEditor;
+            if (editor) {
+                try {
+                    const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
+                    const responseLeerMetrica = await ComunicacionDB.leerMetrica(token, curso, bloque, reto);
+                    let listaCodigos = responseLeerMetrica.data.data.submissions;
+                    const tamano = listaCodigos.length;
+                    const objCodigo = listaCodigos[tamano - 1];
+                    const ultimoCodigo = objCodigo.submittedCode;
+
+                    const seleccion = editor.selection;
+                    const doc = editor.document;
+                    const rangoTexto = new vscode.Range(0, 0, doc.lineCount - 1, doc.lineAt(doc.lineCount - 1).text.length);
+
+                    editor.edit(editBuilder => {
+                        editBuilder.replace(seleccion.isEmpty ? rangoTexto : seleccion, ultimoCodigo);
+                    }).then(() => {
+                        vscode.window.showInformationMessage('ARCHIVO CARGADO CORRECTAMENTE');
+                    });
+                    
+                } catch (error) {
+                    vscode.window.showErrorMessage('ERROR AL COMUNICARSE CON LA BASE DE DATOS');
+                }
+                
+
+            }else{
+                vscode.window.showErrorMessage('DEBE TENER UN ARCHIVO DE PYTHON ABIERTO');
+            }
+        }
+
+
+
+
+        
+    }
+
 
 
 
