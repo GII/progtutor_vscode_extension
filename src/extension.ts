@@ -88,6 +88,7 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(
 		vscode.commands.registerCommand('progtutor.respDuda',async () => {
+			vscode.window.showInformationMessage('SU DUDA HA SIDO RESUELTA');
 			const metrica = 'solvedDoubtCount';
 			await WorkMetric.aumentarMetrica(metrica);
 		}));
