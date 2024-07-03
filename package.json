@@ -36,11 +36,6 @@
           "type": "webview",
           "id": "progtutor.bibliog",
           "name": "Bibliografía"
-        },
-        {
-          "type": "webview",
-          "id": "progtutor.profesor",
-          "name": "Profesor"
         }
       ]
     },
