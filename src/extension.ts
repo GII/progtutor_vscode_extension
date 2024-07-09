@@ -3,7 +3,6 @@ import * as vscode from 'vscode';
 
 import {WebPrincipal} from './webPrinc';
 import {WebBibliografia} from './webBiblig';
-//import {WebProfesor} from './webProf';
 import { GlobalVar } from './globalVar';
 import { PistasVS } from './classPistas';
 import { WorkMetric } from './classWorkMetric';
@@ -85,24 +84,11 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 		vscode.commands.registerCommand('progtutor.descargarArchivo', async () => {
 			await PistasVS.cargarCodigo();
 		}));
-	
-	//context.subscriptions.push(
-		//vscode.commands.registerCommand('progtutor.respDuda',async () => {
-			//vscode.window.showInformationMessage('SU DUDA HA SIDO RESUELTA');
-			//const metrica = 'solvedDoubtCount';
-			//await WorkMetric.aumentarMetrica(metrica);
-		//}));
 
 	const webBib = new WebBibliografia(context.extensionUri);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(WebBibliografia.viewType, webBib));
 	
-	//const webProff = new WebProfesor(context.extensionUri);
-	//context.subscriptions.push(
-		//vscode.window.registerWebviewViewProvider(WebProfesor.viewType, webProff));
-
-	
-		
 	//evento que se activa cada vez que se modifica el fichero python.py-----------------------------------------------------------
 	context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => {		
         if (event.document === vscode.window.activeTextEditor?.document) {
@@ -135,9 +121,6 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 			const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
 		})
 	  );
-
-	  //ejecutarArchivo(diagnosticos)
-	  //vscode.window.showInformationMessage(`${pythonFilePath}`);
 }
 
 

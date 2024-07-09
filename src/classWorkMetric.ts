@@ -188,6 +188,13 @@ export class WorkMetric{
 
     //crea un nuevo dato del objeto para guardar en la BD el codigo de Error-------------------------------------------------------------
     private static crearDatosGuardar(resp: any, codMod: string): any{
+        let lista_errores = ['syntaxErrorCount', 'nameErrorCount', 'typeErrorCount', 'indexErrorCount', 'indentationErrorCount',
+            'valueErrorCount', 'keyErrorCount', 'importErrorCount', 'fileNotFoundErrorCount', 'attributeErrorCount'];
+        
+        if(!lista_errores.includes(codMod)){
+            codMod = 'otherErrorCount';
+        }
+
         let error = resp.data.errorCount + 1;
         const datos: any = {};
         datos['errorCount'] = error;

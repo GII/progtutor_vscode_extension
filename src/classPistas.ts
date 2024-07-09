@@ -12,12 +12,13 @@ export class PistasVS {
         const dir = nom.fsPath;
         return new Promise((resolve, reject) => {
             fs.readFile(dir, 'utf8', (err, data) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            const msg = mensaje + "\n" + data;
-            resolve(msg);
+                if (err) {
+                    console.error(err);
+                    resolve(mensaje); 
+                } else {
+                    const msg = mensaje + "\n" + data;
+                    resolve(msg); 
+                }
             });
         });
     }
