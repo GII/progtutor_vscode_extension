@@ -130,12 +130,8 @@ export class PistasVS {
             if (responseEscribirMetrica.data.code === 200) {
                 try{
                     const respondeEvaluacion = await ComunicacionDB.mandarEvaluar();
-                    if(respondeEvaluacion.data.code === 200){
-                        vscode.window.showInformationMessage('EVALUACIÓN EN CURSO, REVISE EL SIMULADOR PARA MÁS DETALLES');
-                    }
                 }catch(error: any){
                     vscode.window.showErrorMessage('ERROR, DEBE ESTAR FUERA DEL MUNDO PARA EVALUAR');
-                    
                 }
             }   
         }else {

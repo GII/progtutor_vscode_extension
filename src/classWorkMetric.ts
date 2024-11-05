@@ -62,12 +62,14 @@ export class WorkMetric{
             let [mensajeError, ubicacionError, nombreError] = this.obtenerError(miString);
             PistasVS.mostrarPistas(ubicacionError);
             const codMod = this.guardarTipoError(nombreError);
+            const editorss = vscode.window.activeTextEditor;
+            const lineTextError = editor.document.lineAt(ubicacionError-1).text;
             
             const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
             PistasVS.mostrarDiagnostico(bloque, mensajeError, ubicacionError - 1, editor, diagnosticos, context);
         
             const responseLeerMetrica = await ComunicacionDB.leerMetrica(token, curso, bloque, reto);
-            const datos = this.crearDatosGuardar(responseLeerMetrica.data, codMod);
+            const datos = this.crearDatosGuardar(responseLeerMetrica.data, codMod, lineTextError, nombreError);
         
             const responseEscribirMetrica = await ComunicacionDB.escribirMetrica(token, curso, bloque, reto, datos);
             if (responseEscribirMetrica.data.code !== 200) {
@@ -151,7 +153,9 @@ export class WorkMetric{
             }else{
                 const listaPalabras = texto.trim().split(/\s+/);
                 const ultima = listaPalabras[listaPalabras.length - 1];
-                if(ultima === '%'){
+                const ultimoCaracter = ultima[ultima.length - 1];
+                //if(ultima === '%'){
+                if(ultimoCaracter === '$'){
                     cantidad = 2;
                 }
             }
@@ -170,14 +174,14 @@ export class WorkMetric{
         return codigoError;
     }
 
-    public static mensajeDiagnostico(mensaje: string, linea: number, editor: any, diagnosticos: any, columna: number){
-        //vscode.window.showErrorMessage(`TIENE UN ERROR EN LA LÍNEA ${linea + 1}, REVISE EL CÓDIGO`);
+    public static async mensajeDiagnostico(mensaje: string, linea: number, editor: any, diagnosticos: any, columna: number){
         this.mostrarMensajeConBotones(linea)
         const range = new vscode.Range(new vscode.Position(linea, 0), new vscode.Position(linea, columna));
         const diag = new vscode.Diagnostic(range, mensaje, vscode.DiagnosticSeverity.Error);
         diagnosticos.set(editor.document.uri, [diag]);
     }
 
+    //muestra una ventana de dialogo que permite ver la explicación del error
     static async mostrarMensajeConBotones(linea: number) {
         const respuesta = await vscode.window.showErrorMessage(`TIENE UN ERROR EN LA LÍNEA ${linea + 1}, REVISE EL CÓDIGO`, { modal: false }, "Ver", "Cancelar");
     
@@ -187,7 +191,7 @@ export class WorkMetric{
     }
 
     //crea un nuevo dato del objeto para guardar en la BD el codigo de Error-------------------------------------------------------------
-    private static crearDatosGuardar(resp: any, codMod: string): any{
+    private static crearDatosGuardar(resp: any, codMod: string, lineTextError: string, nombreError: string): any{
         let lista_errores = ['syntaxErrorCount', 'nameErrorCount', 'typeErrorCount', 'indexErrorCount', 'indentationErrorCount',
             'valueErrorCount', 'keyErrorCount', 'importErrorCount', 'fileNotFoundErrorCount', 'attributeErrorCount'];
         
@@ -198,6 +202,8 @@ export class WorkMetric{
         let error = resp.data.errorCount + 1;
         const datos: any = {};
         datos['errorCount'] = error;
+        datos['codeErrorLines'] = resp.data.codeErrorLines;
+        datos['codeErrorLines'].push(nombreError + ": " + lineTextError);
         let errorCodigo = resp.data[codMod] + 1;
         datos[codMod] = errorCodigo;
         return datos;
@@ -268,5 +274,6 @@ export class WorkMetric{
             vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
         }
     }
+
 
 }
