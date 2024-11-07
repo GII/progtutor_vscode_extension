@@ -71,7 +71,7 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(
 		vscode.commands.registerCommand('progtutor.Evaluar', async () => {
-			const result = await vscode.window.showInformationMessage("¿Estas seguro que deseas evalaur el reto?",{ modal: true },"Aceptar");
+			const result = await vscode.window.showInformationMessage("¿Estas seguro que deseas evaluar el reto?",{ modal: true },"Aceptar");
 			if (result === "Aceptar") {
 				vscode.window.showInformationMessage('EVALUACIÓN EN CURSO, REVISE EL SIMULADOR PARA MÁS DETALLES');
 				await PistasVS.evaluarCodigo();
