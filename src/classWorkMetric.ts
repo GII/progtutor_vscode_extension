@@ -155,7 +155,7 @@ export class WorkMetric{
                 const ultima = listaPalabras[listaPalabras.length - 1];
                 const ultimoCaracter = ultima[ultima.length - 1];
                 //if(ultima === '%'){
-                if(ultimoCaracter === '$'){
+                if(ultimoCaracter === '$' || ultimoCaracter === '%'){
                     cantidad = 2;
                 }
             }
