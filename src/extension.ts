@@ -7,6 +7,7 @@ import { GlobalVar } from './globalVar';
 import { PistasVS } from './classPistas';
 import { WorkMetric } from './classWorkMetric';
 import { ComunicacionDB } from './classBD';
+import {WebProfesor} from './webProf';
 import * as os from 'os';
 
 
@@ -28,6 +29,16 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('progtutor.libPista1', () => {
 			webPrinc.libPista1();
+		}));
+	
+	context.subscriptions.push(
+		vscode.commands.registerCommand('progtutor.respDuda',async () => {
+			const result = await vscode.window.showInformationMessage("¿Como PROFESOR ha ayudado al estudiante?",{ modal: true },"SI");
+			if (result === "SI") {
+				vscode.window.showInformationMessage('SU DUDA HA SIDO RESUELTA');
+			const metrica = 'solvedDoubtCount';
+			await WorkMetric.aumentarMetrica(metrica);
+			}			
 		}));
 	
 	context.subscriptions.push(
@@ -92,6 +103,10 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	const webBib = new WebBibliografia(context.extensionUri);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(WebBibliografia.viewType, webBib));
+	
+	const webProff = new WebProfesor(context.extensionUri);
+	context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider(WebProfesor.viewType, webProff));
 	
 	//evento que se activa cada vez que se modifica el fichero python.py-----------------------------------------------------------
 	context.subscriptions.push(vscode.workspace.onDidChangeTextDocument((event) => {		
