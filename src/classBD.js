@@ -3,9 +3,12 @@ import * as vscode from 'vscode';
 
 export class ComunicacionDB{
     static dirLOCAL = "http://localhost:2727/api/"
+    
     static dirAPI = "https://progtutor.citic.udc.es/api/";
-
     static publicDomain = "progtutor.citic.udc.es"
+
+    //static dirAPI = "http://10.113.36.13:4001/api/";
+    //static publicDomain = "10.113.36.13"
 
     static getAPIUrl(){
         var loc = window.location;

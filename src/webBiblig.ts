@@ -128,41 +128,36 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 						<p id="txtES" class="subTema"><img src="${iconMas}" class="icono">Entrada / Salida</p>
 						<p id="txtES2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Entrada / Salida</p>
 							<p id="tema1.1" class="subTema2">Intrucciones</p>
-							<p id="tema1.2" class="subTema2">Función print</p>
+							<p id="tema1.2" class="subTema2">Sintaxis básica</p>
 							<p id="tema1.3" class="subTema2">Declaración de variables</p>
 							<p id="tema1.4" class="subTema2">Tipos de datos</p>
 							<p id="tema1.5" class="subTema2">Operadores y operandos</p>
 
 						<p id="txtCond" class="subTema"><img src="${iconMas}" class="icono">Condicionales</p>
 						<p id="txtCond2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Condicionales</p>
-							<p id="tema2.1" class="subTema2">Identado</p>
 							<p id="tema2.2" class="subTema2">Condiciones if, else, elif</p>
 
 						<p id="txtBucles" class="subTema"><img src="${iconMas}" class="icono">Bucles</p>
 						<p id="txtBucles2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Bucles</p>
 							<p id="tema3.1" class="subTema2">Bucles For</p>
 							<p id="tema3.2" class="subTema2">Bucles While</p>
-							<p id="tema3.3" class="subTema2">Control de Bucles</p>
+							<p id="tema3.3" class="subTema2">Uso del Range</p>
 
 						<p id="txtFunc" class="subTema"><img src="${iconMas}" class="icono">Funciones</p>
 						<p id="txtFunc2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Funciones</p>
 							<p id="tema4.1" class="subTema2">Función</p>
-							<p id="tema4.2" class="subTema2">Funciones predefinidas</p>
-							<p id="tema4.3" class="subTema2">Creando una función</p>
+							<p id="tema4.2" class="subTema2">Paso por valor y referencia</p>
+							<p id="tema4.3" class="subTema2">Anotaciones</p>
 
 						<p id="txtListas" class="subTema"><img src="${iconMas}" class="icono">Listas</p>
 						<p id="txtListas2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Listas</p>
 							<p id="tema5.1" class="subTema2">Listas</p>
 							<p id="tema5.2" class="subTema2">Tuplas</p>
-							<p id="tema5.3" class="subTema2">Acceso a listas</p>
-							<p id="tema5.4" class="subTema2">Trabajo con listas</p>
 						
 						<p id="txtFichero" class="subTema"><img src="${iconMas}" class="icono">Ficheros</p>
 						<p id="txtFichero2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Ficheros</p>
-							<p id="tema6.1" class="subTema2">Crear, abrir, leer</p>
-							<p id="tema6.2" class="subTema2">Métodos del archivo</p>
-							<p id="tema6.3" class="subTema2">Modos de apertura</p>
-							<p id="tema6.4" class="subTema2">Estructura de trabajo</p>
+							<p id="tema6.1" class="subTema2">Leer archivos</p>
+							<p id="tema6.2" class="subTema2">Escribir archivos</p>
 						
 						<div><p id="txtRobobo" class="tema"><img src="${iconMas}" class="icono">Métodos Robobo</p>
 					</div>

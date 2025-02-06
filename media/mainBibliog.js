@@ -93,7 +93,7 @@ tema06.addEventListener('click', () => {
 tema07.addEventListener('click', () => {
   vscode.postMessage({
     command: 'cargarEnlace',
-    url: 'https://gii.github.io/python-nb-online/05-funciones-II.html'
+    url: 'https://gii.github.io/python-nb-online/06-funciones-II.html'
   });
 });
 
@@ -197,35 +197,35 @@ function tema1Enlace(tema11, tema12, tema13, tema14, tema15){
   tema11.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/sintaxis-basica-del-lenguaje/#%C2%BFQue_es_una_instruccion_en_python'
+      url: 'https://ellibrodepython.com/hola-mundo-python'
     });
   });
 
   tema12.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/funcion-print-y-hola-mundo/#Funcion_print_%E2%80%93_Nuestro_primer_programa'
+      url: 'https://ellibrodepython.com/sintaxis-python'
     });
   });
 
   tema13.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/variables-que-son-tipos-de-variables-y-funcion-print-type/#Definicion'
+      url: 'https://ellibrodepython.com/variables-python'
     });
   });
 
   tema14.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/variables-que-son-tipos-de-variables-y-funcion-print-type/#Funcion_print_type_python'
+      url: 'https://ellibrodepython.com/tipos-python'
     });
   });
 
   tema15.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/operadores-basicos-en-python/#Tipos_de_operadores_en_python'
+      url: 'https://ellibrodepython.com/operadores-python'
     });
   });
 
@@ -235,7 +235,6 @@ function tema1Enlace(tema11, tema12, tema13, tema14, tema15){
 function tema2(){
   const txtCond = document.getElementById('txtCond');
   const txtCond2 = document.getElementById('txtCond2');
-  const tema21 = document.getElementById('tema2.1');
   const tema22 = document.getElementById('tema2.2');
 
   txtCond2.style.display = 'none';
@@ -243,33 +242,25 @@ function tema2(){
   txtCond.addEventListener('click', () => {
     txtCond2.style.display = 'block';
     txtCond.style.display = 'none';
-    tema21.style.display = 'block';
     tema22.style.display = 'block';
   });
 
   txtCond2.addEventListener('click', () => {
     txtCond2.style.display = 'none';
     txtCond.style.display = 'block';
-    tema21.style.display = 'none';
     tema22.style.display = 'none';
   });
 
-  tema2Enlace(tema21, tema22)
+  tema2Enlace(tema22)
 }
 
-function tema2Enlace(tema21, tema22){
+function tema2Enlace( tema22){
 
-  tema21.addEventListener('click', () => {
-    vscode.postMessage({
-      command: 'cargarEnlace',
-      url: 'https://pythones.net/sintaxis-basica-del-lenguaje/#El_identado_en_Python'
-    });
-  });
 
   tema22.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/if-else-elif-condicionales/#Aprendiendo_a_utilizar_condicionales_If_Elif_Else_en_python'
+      url: 'https://ellibrodepython.com/if-python'
     });
   });
 
@@ -308,21 +299,21 @@ function tema3Enlace(tema31, tema32, tema33){
   tema31.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/bucles-for-while-sintaxis-ejemplos/#Bucles_For'
+      url: 'https://ellibrodepython.com/for-python'
     });
   });
 
   tema32.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/bucles-for-while-sintaxis-ejemplos/#Bucles_While'
+      url: 'https://ellibrodepython.com/while-python'
     });
   });
 
   tema33.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/bucles-for-while-sintaxis-ejemplos/#Control_de_bucles_break_continue_y_pass_en_python'
+      url: 'https://ellibrodepython.com/range-python'
     });
   });
 
@@ -362,21 +353,21 @@ function tema4Enlace(tema41, tema42, tema43){
   tema41.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/que-son-las-funciones/#Funciones_en_python_3'
+      url: 'https://ellibrodepython.com/funciones-en-python'
     });
   });
 
   tema42.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/funciones-predefinidas-crear-nuestra-funcion/#Funciones_predefinidas_en_python'
+      url: 'https://ellibrodepython.com/paso-por-valor-y-referencia'
     });
   });
 
   tema43.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/funciones-predefinidas-crear-nuestra-funcion/#Como_crear_tus_propias_funciones'
+      url: 'https://ellibrodepython.com/function-annotations'
     });
   });
 
@@ -387,8 +378,6 @@ function tema5(){
   const txtListas2 = document.getElementById('txtListas2');
   const tema51 = document.getElementById('tema5.1');
   const tema52 = document.getElementById('tema5.2');
-  const tema53 = document.getElementById('tema5.3');
-  const tema54 = document.getElementById('tema5.4');
 
   txtListas2.style.display = 'none';
 
@@ -397,8 +386,6 @@ function tema5(){
     txtListas.style.display = 'none';
     tema51.style.display = 'block';
     tema52.style.display = 'block';
-    tema53.style.display = 'block';
-    tema54.style.display = 'block';
   });
 
   txtListas2.addEventListener('click', () => {
@@ -406,44 +393,26 @@ function tema5(){
     txtListas.style.display = 'block';
     tema51.style.display = 'none';
     tema52.style.display = 'none';
-    tema53.style.display = 'none';
-    tema54.style.display = 'none';
   });
 
-  tema5Enlace(tema51, tema52, tema53, tema54)
+  tema5Enlace(tema51, tema52)
 }
 
-function tema5Enlace(tema51, tema52, tema53, tema54){
+function tema5Enlace(tema51, tema52){
 
   tema51.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/listas-tuplas-python/#Listas_en_python'
+      url: 'https://ellibrodepython.com/listas-en-python'
     });
   });
 
   tema52.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/listas-tuplas-python/#Tuplas_en_python'
+      url: 'https://ellibrodepython.com/tuplas-python'
     });
   });
-
-  tema53.addEventListener('click', () => {
-    vscode.postMessage({
-      command: 'cargarEnlace',
-      url: 'https://pythones.net/listas-tuplas-python/#Accediendo_a_Listas_y_Tuplas'
-    });
-  });
-
-  tema54.addEventListener('click', () => {
-    vscode.postMessage({
-      command: 'cargarEnlace',
-      url: 'https://pythones.net/listas-tuplas-python/#Slice_cortando_Listas_y_Tuplas_en_Python'
-    });
-  });
-
-
 }
 
 function tema6(){
@@ -451,8 +420,6 @@ function tema6(){
   const txtFichero2 = document.getElementById('txtFichero2');
   const tema61 = document.getElementById('tema6.1');
   const tema62 = document.getElementById('tema6.2');
-  const tema63 = document.getElementById('tema6.3');
-  const tema64 = document.getElementById('tema6.4');
 
   txtFichero2.style.display = 'none';
 
@@ -461,8 +428,6 @@ function tema6(){
     txtFichero.style.display = 'none';
     tema61.style.display = 'block';
     tema62.style.display = 'block';
-    tema63.style.display = 'block';
-    tema64.style.display = 'block';
   });
 
   txtFichero2.addEventListener('click', () => {
@@ -470,43 +435,26 @@ function tema6(){
     txtFichero.style.display = 'block';
     tema61.style.display = 'none';
     tema62.style.display = 'none';
-    tema63.style.display = 'none';
-    tema64.style.display = 'none';
   });
 
-  tema6Enlace(tema61, tema62, tema63, tema64)
+  tema6Enlace(tema61, tema62)
 }
 
-function tema6Enlace(tema61, tema62, tema63, tema64){
+function tema6Enlace(tema61, tema62){
 
   tema61.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/archivos-en-python-3/#Archivos_en_Python_3_Crear_leer_abrir_ejecutar'
+      url: 'https://ellibrodepython.com/leer-archivos-python'
     });
   });
 
   tema62.addEventListener('click', () => {
     vscode.postMessage({
       command: 'cargarEnlace',
-      url: 'https://pythones.net/archivos-en-python-3/#Metodos_del_objeto_file_en_python'
+      url: 'https://ellibrodepython.com/escribir-archivos-python'
     });
   });
-
-  tema63.addEventListener('click', () => {
-    vscode.postMessage({
-      command: 'cargarEnlace',
-      url: 'https://pythones.net/archivos-en-python-3/#Modos_de_apertura_de_archivos_en_python'
-    });
-  });
-
-  tema64.addEventListener('click', () => {
-    vscode.postMessage({
-      command: 'cargarEnlace',
-      url: 'https://pythones.net/archivos-en-python-3/#Crear_un_programa_para_leer_archivos_desde_Python'
-    });
-  });
-
 
 }
 
