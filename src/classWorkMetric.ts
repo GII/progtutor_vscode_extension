@@ -25,7 +25,7 @@ export class WorkMetric{
     
         if (finalizado === true) {
             clearInterval(intervalo);
-            if (miString.search("Error") !== -1 || miString.search("Traceback") !== -1) {
+            if (miString.search("Traceback") !== -1) {
                 await this.tratarError(miString, editor, diagnosticos, context);
             } else {
                 if(conection !== true){
