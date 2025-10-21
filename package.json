@@ -4,7 +4,7 @@
   "description": "Plugin desarrollado para trabajar con el simulador educativo ProgTutor",
   "author": "Universidade Da Coruña",
   "publisher": "Universidade Da Coruña",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "icon": "media/logo.png",
   "engines": {
     "vscode": "^1.78.0"

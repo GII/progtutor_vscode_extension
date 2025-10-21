@@ -69,7 +69,7 @@ export class WorkMetric{
             PistasVS.mostrarDiagnostico(bloque, mensajeError, ubicacionError - 1, editor, diagnosticos, context);
         
             const responseLeerMetrica = await ComunicacionDB.leerMetrica(token, curso, bloque, reto);
-            const datos = this.crearDatosGuardar(responseLeerMetrica.data, codMod, lineTextError, nombreError);
+            const datos = this.crearDatosGuardar(responseLeerMetrica.data, codMod, lineTextError, nombreError, ubicacionError);
         
             const responseEscribirMetrica = await ComunicacionDB.escribirMetrica(token, curso, bloque, reto, datos);
             if (responseEscribirMetrica.data.code !== 200) {
@@ -191,7 +191,7 @@ export class WorkMetric{
     }
 
     //crea un nuevo dato del objeto para guardar en la BD el codigo de Error-------------------------------------------------------------
-    private static crearDatosGuardar(resp: any, codMod: string, lineTextError: string, nombreError: string): any{
+    private static crearDatosGuardar(resp: any, codMod: string, lineTextError: string, nombreError: string, ubicacionError: number): any{
         let lista_errores = ['syntaxErrorCount', 'nameErrorCount', 'typeErrorCount', 'indexErrorCount', 'indentationErrorCount',
             'valueErrorCount', 'keyErrorCount', 'importErrorCount', 'fileNotFoundErrorCount', 'attributeErrorCount'];
         
@@ -203,7 +203,7 @@ export class WorkMetric{
         const datos: any = {};
         datos['errorCount'] = error;
         datos['codeErrorLines'] = resp.data.codeErrorLines;
-        datos['codeErrorLines'].push(nombreError + ": " + lineTextError);
+        datos['codeErrorLines'].push("Linea " + ubicacionError + ", " + nombreError + ", " + lineTextError);
         let errorCodigo = resp.data[codMod] + 1;
         datos[codMod] = errorCodigo;
         return datos;
