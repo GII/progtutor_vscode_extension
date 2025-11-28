@@ -1,6 +1,5 @@
 
 function tema0(){
-  const txtRobobo = document.getElementById('txtRobobo');
   const txtClase = document.getElementById('txtClase');
   const txtClase2 = document.getElementById('txtClase2');
   const tema01 = document.getElementById('tema0.1');
@@ -43,10 +42,10 @@ function tema0(){
     tema09.style.display = 'none';
   });
 
-  tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09, txtRobobo);
+  tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09);
 }
 
-function tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09, txtRobobo){
+function tema0Enlace(tema01, tema02, tema03, tema04, tema05, tema06, tema07, tema08, tema09){
 
 tema01.addEventListener('click', () => {
   vscode.postMessage({
@@ -110,15 +109,6 @@ tema09.addEventListener('click', () => {
     url: ''
   });
 });
-
-txtRobobo.addEventListener('click', () => {
-  vscode.postMessage({
-    command: 'cargarEnlace',
-    url: 'https://progtutor.citic.udc.es/docs/manual_programacion_robobo_python.pdf'
-  });
-});
-
-
 }
 
 function temaSec(){
@@ -458,11 +448,232 @@ function tema6Enlace(tema61, tema62){
 
 }
 
+
+
+function temaRobobo(){
+  const txtRobobo = document.getElementById('txtRobobo');
+  const txtRobobo2 = document.getElementById('txtRobobo2');
+  const fx1 = document.getElementById('fx1');
+  const fx2 = document.getElementById('fx2');
+  const fx3 = document.getElementById('fx3');
+  const fx4 = document.getElementById('fx4');
+  const fx5 = document.getElementById('fx5');
+  const fx6 = document.getElementById('fx6');
+  const fx7 = document.getElementById('fx7');
+  const fx8 = document.getElementById('fx8');
+  const fx9 = document.getElementById('fx9');
+  const fx10 = document.getElementById('fx10');
+  const fx11 = document.getElementById('fx11');
+  const fx12 = document.getElementById('fx12');
+  const fx13 = document.getElementById('fx13');
+  const fx14 = document.getElementById('fx14');
+  const fx15 = document.getElementById('fx15');
+  const fx16 = document.getElementById('fx16');
+  const fx17 = document.getElementById('fx17');
+  const fx18 = document.getElementById('fx18');
+  const fx19 = document.getElementById('fx19');
+
+
+
+  txtRobobo2.style.display = 'none';
+
+  txtRobobo.addEventListener('click', () => {
+    txtRobobo2.style.display = 'block';
+    txtRobobo.style.display = 'none';
+    fx1.style.display = 'block';
+    fx2.style.display = 'block';
+    fx3.style.display = 'block';
+    fx4.style.display = 'block';
+    fx5.style.display = 'block';
+    fx6.style.display = 'block';
+    fx7.style.display = 'block';
+    fx8.style.display = 'block';
+    fx9.style.display = 'block';
+    fx10.style.display = 'block';
+    fx11.style.display = 'block';
+    fx12.style.display = 'block';
+    fx13.style.display = 'block';
+    fx14.style.display = 'block';
+    fx15.style.display = 'block';
+    fx16.style.display = 'block';
+    fx17.style.display = 'block';
+    fx18.style.display = 'block';
+    fx19.style.display = 'block';
+
+  });
+
+  txtRobobo2.addEventListener('click', () => {
+    txtRobobo2.style.display = 'none';
+    txtRobobo.style.display = 'block';
+    fx1.style.display = 'none';
+    fx2.style.display = 'none';
+    fx3.style.display = 'none';
+    fx4.style.display = 'none';
+    fx5.style.display = 'none';
+    fx6.style.display = 'none';
+    fx7.style.display = 'none';
+    fx8.style.display = 'none';
+    fx9.style.display = 'none';
+    fx10.style.display = 'none';
+    fx11.style.display = 'none';
+    fx12.style.display = 'none';
+    fx13.style.display = 'none';
+    fx14.style.display = 'none';
+    fx15.style.display = 'none';
+    fx16.style.display = 'none';
+    fx17.style.display = 'none';
+    fx18.style.display = 'none';
+    fx19.style.display = 'none';
+  });
+
+  temaRoboboEnlace(fx1, fx2, fx3, fx4, fx5, fx6, fx7, fx8, fx9,
+    fx10, fx11, fx12, fx13, fx14, fx15, fx16, fx17, fx18, fx19);
+}
+
+function temaRoboboEnlace(fx1, fx2, fx3, fx4, fx5, fx6, fx7, fx8, fx9,
+    fx10, fx11, fx12, fx13, fx14, fx15, fx16, fx17, fx18, fx19){
+
+fx1.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/03-Pan_y_Tilt/Cuaderno_3_PanTilt.html#pan'
+  });
+});
+
+fx2.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/03-Pan_y_Tilt/Cuaderno_3_PanTilt.html#tilt'
+  });
+});
+
+fx3.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/02-Motores_de_las_Ruedas/Cuaderno_2_MotoresRuedas.html#mw'
+  });
+});
+
+fx4.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/02-Motores_de_las_Ruedas/Cuaderno_2_MotoresRuedas.html#mwt'
+  });
+});
+
+fx5.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/04-Sonido_Texto_y_LEDs/Cuaderno_4_Sonido_Text_LEDs.html#playnote'
+  });
+});
+
+fx6.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/04-Sonido_Texto_y_LEDs/Cuaderno_4_Sonido_Text_LEDs.html#playsounds'
+  });
+});
+
+fx7.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/07-Sensores_de_Luz_y_Color/Cuaderno_7_SensorLuz_y_Color.html#readblob'
+  });
+});
+
+fx8.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/05-Sensores_Infrarrojos/Cuaderno_5_Sensores.html'
+  });
+});
+
+fx9.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/10-Sensores_de_Movimiento/Cuaderno_10_SensMovimiento.html#ror'
+  });
+});
+
+fx10.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/03-Pan_y_Tilt/Cuaderno_3_PanTilt.html#readpan'
+  });
+});
+
+fx11.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/08-Codigos_QR/Cuaderno_8_QR.html#read'
+  });
+});
+
+fx12.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/02-Motores_de_las_Ruedas/Cuaderno_2_MotoresRuedas.html#readwp'
+  });
+});
+
+fx13.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/07-Sensores_de_Luz_y_Color/Cuaderno_7_SensorLuz_y_Color.html#claseblob'
+  });
+});
+
+fx14.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/04-Sonido_Texto_y_LEDs/Cuaderno_4_Sonido_Text_LEDs.html#playtext'
+  });
+});
+
+fx15.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/07-Sensores_de_Luz_y_Color/Cuaderno_7_SensorLuz_y_Color.html#setblob'
+  });
+});
+
+fx16.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/04-Sonido_Texto_y_LEDs/Cuaderno_4_Sonido_Text_LEDs.html#emotions'
+  });
+});
+
+fx17.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/04-Sonido_Texto_y_LEDs/Cuaderno_4_Sonido_Text_LEDs.html#led'
+  });
+});
+
+fx18.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/02-Motores_de_las_Ruedas/Cuaderno_2_MotoresRuedas.html#stop'
+  });
+});
+
+fx19.addEventListener('click', () => {
+  vscode.postMessage({
+    command: 'cargarEnlace',
+    url: 'https://gii.github.io/robobo-nb-online/02-Motores_de_las_Ruedas/Cuaderno_2_MotoresRuedas.html#w'
+  });
+});
+
+
+}
+
   
   
   //AQUI VA TODA LA PARTE PRINCIPAL DEL PROGRAMA-----------------------------------------------------------------------------------------------------------------------------------
   const vscode = acquireVsCodeApi();
-
+  temaRobobo();
   temaSec();
   tema0();
   tema1();

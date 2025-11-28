@@ -160,6 +160,27 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 							<p id="tema6.2" class="subTema2">Escribir archivos</p>
 						
 						<div><p id="txtRobobo" class="tema"><img src="${iconMas}" class="icono">Métodos Robobo</p>
+						<p id="txtRobobo2" class="tema" style="display: none;"><img src="${iconMenos}" class="icono">Métodos Robobo</p>
+							<p id="fx1" class="subTemaPrinc">movePanTo</p>
+							<p id="fx2" class="subTemaPrinc">moveTiltTo</p>
+							<p id="fx3" class="subTemaPrinc">moveWheels</p>
+							<p id="fx4" class="subTemaPrinc">moveWheelsByTime</p>
+							<p id="fx5" class="subTemaPrinc">playNote</p>
+							<p id="fx6" class="subTemaPrinc">playSound</p>
+							<p id="fx7" class="subTemaPrinc">readColorBlob</p>
+							<p id="fx8" class="subTemaPrinc">readIRSensor</p>
+							<p id="fx9" class="subTemaPrinc">readOrientationSensor</p>
+							<p id="fx10" class="subTemaPrinc">readPanPosition</p>
+							<p id="fx11" class="subTemaPrinc">readQR</p>
+							<p id="fx12" class="subTemaPrinc">readWheelPosition</p>
+							<p id="fx13" class="subTemaPrinc">resetColorBlobs</p>
+							<p id="fx14" class="subTemaPrinc">sayText</p>
+							<p id="fx15" class="subTemaPrinc">setActiveBlobs</p>
+							<p id="fx16" class="subTemaPrinc">setEmotionTo</p>
+							<p id="fx17" class="subTemaPrinc">setLedColorTo</p>
+							<p id="fx18" class="subTemaPrinc">stopMotors</p>
+							<p id="fx19" class="subTemaPrinc">wait</p>
+							
 					</div>
 				</div>
 
