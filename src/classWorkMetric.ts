@@ -25,6 +25,7 @@ export class WorkMetric{
     
         if (finalizado === true) {
             clearInterval(intervalo);
+            await ComunicacionDB.bloquearRobot();
             if (miString.search("Traceback") !== -1) {
                 await this.tratarError(miString, editor, diagnosticos, context);
             } else {

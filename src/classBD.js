@@ -7,9 +7,6 @@ export class ComunicacionDB{
     static dirAPI = "https://progtutor.citic.udc.es/api/";
     static publicDomain = "progtutor.citic.udc.es"
 
-    //static dirAPI = "http://10.113.36.13:4001/api/";
-    //static publicDomain = "10.113.36.13"
-
     static getAPIUrl(){
         var loc = window.location;
         var host = loc.host.split(':')[0];
@@ -46,6 +43,16 @@ export class ComunicacionDB{
     
     static obtenerTema(){
         const url = `${ComunicacionDB.dirLOCAL}challenge`;
+        return axios.get(url);
+    }
+
+    static async desbloquearRobot(){
+        const url = `${ComunicacionDB.dirLOCAL}unlock/`;
+        return axios.get(url);
+    }
+
+    static async bloquearRobot(){
+        const url = `${ComunicacionDB.dirLOCAL}lock/`;
         return axios.get(url);
     }
 

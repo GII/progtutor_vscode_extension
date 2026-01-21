@@ -123,6 +123,7 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 				ejecutar(diagnosticos, context);
 			  } catch (error) {
 				vscode.window.showErrorMessage(`Debe cargar un reto primero`);
+				ComunicacionDB.bloquearRobot();
 			  }
 		})
 	);
@@ -151,12 +152,18 @@ async function ejecutar(diagnosticos: any, context: vscode.ExtensionContext){
 		vscode.window.showInformationMessage(`No tiene ningún reto seleccionado`);
 	}
 	else{
-		ejecutarArchivo(diagnosticos, context);
+		try {
+			await ComunicacionDB.desbloquearRobot();
+			await ejecutarArchivo(diagnosticos, context);
+		} catch (error) {
+			vscode.window.showErrorMessage('Error durante la ejecución del reto');
+			await ComunicacionDB.bloquearRobot();
+		}
 	}
 }
 
 //se ejecuta el archivo python en un terminal nuevo y se hace todo el proceso para capturar el error---------------------------------------------
-async function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionContext){
+async function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionContext): Promise<void>{
 	const editor = vscode.window.activeTextEditor;
 	if (!editor) {
 	  return;
@@ -169,6 +176,8 @@ async function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionConte
 
 	await editor.document.save();
 	const pythonFilePath = editor.document.fileName;
+
+	vscode.window.terminals.forEach(terminal => {terminal.dispose();});
 
 	const terminal = vscode.window.createTerminal({ name: 'Terminal ProgTutor' });
 
