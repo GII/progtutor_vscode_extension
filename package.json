@@ -30,17 +30,17 @@
         {
           "type": "webview",
           "id": "progtutor.principal",
-          "name": "Principal"
+          "name": "Main"
         },
         {
           "type": "webview",
           "id": "progtutor.bibliog",
-          "name": "Bibliografía"
+          "name": "Bibliography"
         },
         {
           "type": "webview",
           "id": "progtutor.profesor",
-          "name": "Profesor"
+          "name": "Teacher"
         }
       ]
     },
@@ -118,7 +118,7 @@
       {
 				"command": "progtutor.respDuda",
 				"category": "Profesor",
-				"title": "Duda Resuelta"
+				"title": "Solve doubt"
 			},
       {
         "command": "progtutor.refrecar",

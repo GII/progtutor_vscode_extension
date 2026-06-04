@@ -110,8 +110,8 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 			</head>
 			<body>
 				<div class="container">
-						<div><p id="txtClase" class="tema"><img src="${iconMas}" class="icono">Clases</p>
-						<p id="txtClase2" class="tema" style="display: none;"><img src="${iconMenos}" class="icono">Clases</p>
+						<div><p id="txtClase" class="tema"><img src="${iconMas}" class="icono">Classes</p>
+						<p id="txtClase2" class="tema" style="display: none;"><img src="${iconMenos}" class="icono">Classes</p>
 							<p id="tema0.1" class="subTemaPrinc">Variables y expresiones</p>
 							<p id="tema0.2" class="subTemaPrinc">Entrada / Salida</p>
 							<p id="tema0.3" class="subTemaPrinc">Condicionales</p>
@@ -122,45 +122,45 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 							<p id="tema0.8" class="subTemaPrinc">Listas</p>
 							<p id="tema0.9" class="subTemaPrinc">Ficheros</p>
 
-						<div><p id="txtSec" class="tema"><img src="${iconMas}" class="icono">Temas Detallados</p>
-						<p id="txtSec2" class="tema" style="display: none;"><img src="${iconMenos}" class="icono">Temas Detallados</p>
+						<div><p id="txtSec" class="tema"><img src="${iconMas}" class="icono">Detailed Topics</p>
+						<p id="txtSec2" class="tema" style="display: none;"><img src="${iconMenos}" class="icono">Detailed Topics</p>
 
-						<p id="txtES" class="subTema"><img src="${iconMas}" class="icono">Entrada / Salida</p>
-						<p id="txtES2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Entrada / Salida</p>
-							<p id="tema1.1" class="subTema2">Intrucciones</p>
-							<p id="tema1.2" class="subTema2">Sintaxis básica</p>
-							<p id="tema1.3" class="subTema2">Declaración de variables</p>
-							<p id="tema1.4" class="subTema2">Tipos de datos</p>
-							<p id="tema1.5" class="subTema2">Operadores y operandos</p>
+						<p id="txtES" class="subTema"><img src="${iconMas}" class="icono">Input / Output</p>
+						<p id="txtES2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Input / Output</p>
+							<p id="tema1.1" class="subTema2">Instructions</p>
+							<p id="tema1.2" class="subTema2">Basic Syntax</p>
+							<p id="tema1.3" class="subTema2">Variable Declaration</p>
+							<p id="tema1.4" class="subTema2">Data Types</p>
+							<p id="tema1.5" class="subTema2">Operators and Operands</p>
 
-						<p id="txtCond" class="subTema"><img src="${iconMas}" class="icono">Condicionales</p>
-						<p id="txtCond2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Condicionales</p>
-							<p id="tema2.2" class="subTema2">Condiciones if, else, elif</p>
+						<p id="txtCond" class="subTema"><img src="${iconMas}" class="icono">Conditionals</p>
+						<p id="txtCond2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Conditionals</p>
+							<p id="tema2.2" class="subTema2">Conditionals if, else, elif</p>
 
-						<p id="txtBucles" class="subTema"><img src="${iconMas}" class="icono">Bucles</p>
-						<p id="txtBucles2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Bucles</p>
-							<p id="tema3.1" class="subTema2">Bucles For</p>
-							<p id="tema3.2" class="subTema2">Bucles While</p>
-							<p id="tema3.3" class="subTema2">Uso del Range</p>
+						<p id="txtBucles" class="subTema"><img src="${iconMas}" class="icono">Loops</p>
+						<p id="txtBucles2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Loops</p>
+							<p id="tema3.1" class="subTema2">For Loops</p>
+							<p id="tema3.2" class="subTema2">While Loops</p>
+							<p id="tema3.3" class="subTema2">Range Function</p>
 
-						<p id="txtFunc" class="subTema"><img src="${iconMas}" class="icono">Funciones</p>
-						<p id="txtFunc2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Funciones</p>
-							<p id="tema4.1" class="subTema2">Función</p>
-							<p id="tema4.2" class="subTema2">Paso por valor y referencia</p>
-							<p id="tema4.3" class="subTema2">Anotaciones</p>
+						<p id="txtFunc" class="subTema"><img src="${iconMas}" class="icono">Functions</p>
+						<p id="txtFunc2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Functions</p>
+							<p id="tema4.1" class="subTema2">Function</p>
+							<p id="tema4.2" class="subTema2">Passing by Value and Reference</p>
+							<p id="tema4.3" class="subTema2">Annotations</p>
 
-						<p id="txtListas" class="subTema"><img src="${iconMas}" class="icono">Listas</p>
-						<p id="txtListas2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Listas</p>
-							<p id="tema5.1" class="subTema2">Listas</p>
-							<p id="tema5.2" class="subTema2">Tuplas</p>
+						<p id="txtListas" class="subTema"><img src="${iconMas}" class="icono">Lists</p>
+						<p id="txtListas2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Lists</p>
+							<p id="tema5.1" class="subTema2">Lists</p>
+							<p id="tema5.2" class="subTema2">Tuples</p>
 						
-						<p id="txtFichero" class="subTema"><img src="${iconMas}" class="icono">Ficheros</p>
-						<p id="txtFichero2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Ficheros</p>
-							<p id="tema6.1" class="subTema2">Leer archivos</p>
-							<p id="tema6.2" class="subTema2">Escribir archivos</p>
+						<p id="txtFichero" class="subTema"><img src="${iconMas}" class="icono">Files</p>
+						<p id="txtFichero2" class="subTema" style="display: none;"><img src="${iconMenos}" class="icono">Files</p>
+							<p id="tema6.1" class="subTema2">Reading Files</p>
+							<p id="tema6.2" class="subTema2">Writing Files</p>
 						
-						<div><p id="txtRobobo" class="tema"><img src="${iconMas}" class="icono">Métodos Robobo</p>
-						<p id="txtRobobo2" class="tema" style="display: none;"><img src="${iconMenos}" class="icono">Métodos Robobo</p>
+						<div><p id="txtRobobo" class="tema"><img src="${iconMas}" class="icono">Robobo Methods</p>
+						<p id="txtRobobo2" class="tema" style="display: none;"><img src="${iconMenos}" class="icono">Robobo Methods</p>
 							<p id="fx1" class="subTemaPrinc">movePanTo</p>
 							<p id="fx2" class="subTemaPrinc">moveTiltTo</p>
 							<p id="fx3" class="subTemaPrinc">moveWheels</p>

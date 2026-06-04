@@ -185,12 +185,12 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 					<div class="row">
 						<div class="col-6">
 							<div class="text-center">
-								<button id="btn.ejecutar" class = "btnTransp"><img src="${iconPlay}" class="iconoGrande">PROBAR EJERCICIO</button>
+								<button id="btn.ejecutar" class = "btnTransp"><img src="${iconPlay}" class="iconoGrande">TEST EXERCISE</button>
 							</div>
 						</div>	
 						<div class="col-6">
 							<div class="text-center">
-								<button id="btn.evaluar" class = "btnTransp" disabled><img src="${iconEval}" class="iconoGrande">EVALUAR EJERCICIO</button>
+								<button id="btn.evaluar" class = "btnTransp" disabled><img src="${iconEval}" class="iconoGrande">EVALUATE EXERCISE</button>
 							</div>
 						</div>														
 					</div>
@@ -198,12 +198,12 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 					<div class="row">
 						<div class="col-6">
 							<div class="text-center">
-								<button id="btn.guardar" class = "btnTransp"><img src="${iconGuardar}" class="iconoGrande">GUARDAR EJERCICIO</button>
+								<button id="btn.guardar" class = "btnTransp"><img src="${iconGuardar}" class="iconoGrande">SAVE EXERCISE</button>
 							</div>
 						</div>	
 						<div class="col-6">
 							<div class="text-center">
-								<button id="btn.cargar" class = "btnTransp"><img src="${iconDesc}" class="iconoGrande">CARGAR EJERCICIO</button>
+								<button id="btn.cargar" class = "btnTransp"><img src="${iconDesc}" class="iconoGrande">LOAD EXERCISE</button>
 							</div>
 						</div>														
 					</div>
@@ -211,7 +211,7 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 
 
 
-					<p id="etiqueta" class="pista">PISTAS</p>
+					<p id="etiqueta" class="pista">CLUES</p>
 					<hr class="hr">
 
 					<div class="row">
@@ -221,10 +221,10 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 									<div class="col-5"><img src="${iconPista}" class="iconoGrande2"></div>
 									<div class="col-7" style="padding:0px;">
 										<div  class="row" >
-											<p class="botonPista">PISTA 1</p>
+											<p class="botonPista">CLUE 1</p>
 										</div>
 										<div  class="row">
-											<p class="botonPista">Ubicación del error</p>
+											<p class="botonPista">Location of the error</p>
 										</div>
 									</div>
 								</div>
@@ -239,10 +239,10 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 									<div class="col-5"><img src="${iconPista}" class="iconoGrande2"></div>
 									<div class="col-7" style="padding:0px;">
 										<div  class="row" >
-											<p class="botonPista">PISTA 2</p>
+											<p class="botonPista">CLUE 2</p>
 										</div>
 										<div  class="row">
-											<p class="botonPista">Explicación del error</p>
+											<p class="botonPista">Explanation of the error</p>
 										</div>
 									</div>
 								</div>
