@@ -112,15 +112,15 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 				<div class="container">
 						<div><p id="txtClase" class="tema"><img src="${iconMas}" class="icono">Classes</p>
 						<p id="txtClase2" class="tema" style="display: none;"><img src="${iconMenos}" class="icono">Classes</p>
-							<p id="tema0.1" class="subTemaPrinc">Variables y expresiones</p>
-							<p id="tema0.2" class="subTemaPrinc">Entrada / Salida</p>
-							<p id="tema0.3" class="subTemaPrinc">Condicionales</p>
-							<p id="tema0.4" class="subTemaPrinc">Bucles I</p>
-							<p id="tema0.5" class="subTemaPrinc">Bucles II</p>
-							<p id="tema0.6" class="subTemaPrinc">Funciones I</p>
-							<p id="tema0.7" class="subTemaPrinc">Funciones II</p>
-							<p id="tema0.8" class="subTemaPrinc">Listas</p>
-							<p id="tema0.9" class="subTemaPrinc">Ficheros</p>
+							<p id="tema0.1" class="subTemaPrinc">Variables and expressions</p>
+							<p id="tema0.2" class="subTemaPrinc">Input / Output</p>
+							<p id="tema0.3" class="subTemaPrinc">Conditionals</p>
+							<p id="tema0.4" class="subTemaPrinc">Loops I</p>
+							<p id="tema0.5" class="subTemaPrinc">Loops II</p>
+							<p id="tema0.6" class="subTemaPrinc">Functions I</p>
+							<p id="tema0.7" class="subTemaPrinc">Functions II</p>
+							<p id="tema0.8" class="subTemaPrinc">Lists</p>
+							<p id="tema0.9" class="subTemaPrinc">Files</p>
 
 						<div><p id="txtSec" class="tema"><img src="${iconMas}" class="icono">Detailed Topics</p>
 						<p id="txtSec2" class="tema" style="display: none;"><img src="${iconMenos}" class="icono">Detailed Topics</p>

@@ -107,7 +107,7 @@ function codigoHtml(styleBootstrapUri: any, styleBootstrapGridUri: any,
 					<div class="row">
 						<div class="col-6">
 							<div class="text-center">
-								<button id="btn.profesor" class = "btnTransp"><img src="${iconMano}" class="iconoGrande">DUDA RESUELTA</button>
+								<button id="btn.profesor" class = "btnTransp"><img src="${iconMano}" class="iconoGrande">SOLVE DOUBT</button>
 							</div>
 						</div>														
 					</div>					
