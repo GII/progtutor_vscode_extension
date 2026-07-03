@@ -31,7 +31,7 @@ export class WorkMetric{
             } else {
                 if(conection !== true){
                     this.cantEjecucion();
-                    vscode.window.showInformationMessage(`¡NO HAY ERROR!`);
+                    vscode.window.showInformationMessage(`THERE IS NO ERROR!`);
                     vscode.commands.executeCommand('progtutor.libEvaluar');
                 }
                 diagnosticos.clear();
@@ -52,7 +52,7 @@ export class WorkMetric{
         datos['executionCount'] = cantEjecucion;
         const responseEscribirMetrica = await ComunicacionDB.escribirMetrica(token, curso, bloque, reto, datos);
         if (responseEscribirMetrica.data.code !== 200) {
-            vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+            vscode.window.showErrorMessage('ERROR IN THE DATABASE.');
         }
 
     }
@@ -74,7 +74,7 @@ export class WorkMetric{
         
             const responseEscribirMetrica = await ComunicacionDB.escribirMetrica(token, curso, bloque, reto, datos);
             if (responseEscribirMetrica.data.code !== 200) {
-                vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+                vscode.window.showErrorMessage('ERROR IN THE DATABASE.');
             }
         } catch (error) {
             vscode.window.showErrorMessage(`${error}`);
@@ -131,7 +131,7 @@ export class WorkMetric{
 
         if(texto.includes(msgConexion)){
             cantidad = 2;
-            vscode.window.showInformationMessage(`Revise que tenga el reto abierto o que la conexión con ROBOBO esté creada correctamente`);
+            vscode.window.showInformationMessage(`Please check that you have the challenge open or that the connection with ROBOBO is created correctly`);
             texto = "msgConexion";
             conection = true;
         }else{
@@ -184,9 +184,9 @@ export class WorkMetric{
 
     //muestra una ventana de dialogo que permite ver la explicación del error
     static async mostrarMensajeConBotones(linea: number) {
-        const respuesta = await vscode.window.showErrorMessage(`TIENE UN ERROR EN LA LÍNEA ${linea + 1}, REVISE EL CÓDIGO`, { modal: false }, "Ver", "Cancelar");
+        const respuesta = await vscode.window.showErrorMessage(`YOU HAVE AN ERROR IN LINE ${linea + 1}, PLEASE REVIEW THE CODE`, { modal: false }, "View", "Cancel");
     
-        if (respuesta === "Ver") {
+        if (respuesta === "View") {
             vscode.commands.executeCommand('editor.action.marker.next');
         }
     }
@@ -255,10 +255,10 @@ export class WorkMetric{
             datos['avgTime'] = tiempoMedio;
             const responseEscribirMetrica = await ComunicacionDB.escribirMetrica(token, curso, bloque, reto, datos);
             if (responseEscribirMetrica.data.code !== 200){
-                vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+                vscode.window.showErrorMessage('ERROR IN THE DATABASE.');
             }
         }catch(error){
-            vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+            vscode.window.showErrorMessage('ERROR IN THE DATABASE.');
         }
     }
 
@@ -272,7 +272,7 @@ export class WorkMetric{
 
         const responseEscribirMetrica = await ComunicacionDB.escribirMetrica(token, curso, bloque, reto, datos);
         if (responseEscribirMetrica.data.code !== 200) {
-            vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS.');
+            vscode.window.showErrorMessage('ERROR IN THE DATABASE.');
         }
     }
 

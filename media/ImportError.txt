@@ -1,4 +1,4 @@
-Estás haciendo un "import" a un módulo que no existe. 
-Revisa que el módulo que llamas tiene el nombre correcto y 
-que esté instalado correctamente en tu ordenador para la 
-versión de Python que estás usando
+You are importing a module that does not exist.
+Make sure the module you are importing has the correct name 
+and is properly installed on your computer for the 
+version of Python you are using.

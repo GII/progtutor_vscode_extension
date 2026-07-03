@@ -1,4 +1,4 @@
-Intentas acceder a un índice de la lista fuera de rango. 
-Asegurate que el índice al que accedes se encuentra 
-dentro del tamaño de la lista. Recuerda que las listas 
-comienzas con índice 0 y su último índice es "dimensión -1"
+You are trying to access a list index that is out of range.
+Make sure the index you are accessing is within the bounds
+of the list. Remember that lists start at index 0 and that
+their last index is "length - 1".

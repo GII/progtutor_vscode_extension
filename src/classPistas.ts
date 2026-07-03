@@ -42,11 +42,11 @@ export class PistasVS {
                 if(GlobalVar.contErrorConsec1 > GlobalVar.umbralCantError){
                     vscode.commands.executeCommand('progtutor.libPista1');
                     vscode.commands.executeCommand('progtutor.libPista2');
-                    vscode.window.showInformationMessage(`Veo que no encuentras la solución, tienes libre una pista para usar`);
+                    vscode.window.showInformationMessage(`I see you’re not finding the solution, you have a hint available to use.`);
                 }
                 if(GlobalVar.contErrorConsec2 > GlobalVar.umbralCantError){
                     vscode.commands.executeCommand('progtutor.libPista2');
-                    vscode.window.showInformationMessage(`Veo que no encuentras la solución, tienes libre una pista para usar`);
+                    vscode.window.showInformationMessage(`I see you’re not finding the solution, you have a hint available to use.`);
                 }
             }else{
                 GlobalVar.lineaError = linea;
@@ -125,17 +125,17 @@ export class PistasVS {
             const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
             const responseEscribirMetrica = await ComunicacionDB.escribirCodigo(token, curso, bloque, reto, dato);
             if (responseEscribirMetrica.data.code !== 200) {
-                vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS');
+                vscode.window.showErrorMessage('ERROR IN THE DATABASE');
             }
             if (responseEscribirMetrica.data.code === 200) {
                 try{
                     const respondeEvaluacion = await ComunicacionDB.mandarEvaluar();
                 }catch(error: any){
-                    vscode.window.showErrorMessage('ERROR, DEBE ESTAR FUERA DEL MUNDO PARA EVALUAR');
+                    vscode.window.showErrorMessage('ERROR, YOU MUST BE OUTSIDE THE WORLD TO EVALUATE');
                 }
             }   
         }else {
-            vscode.window.showErrorMessage('No hay un editor activo.');
+            vscode.window.showErrorMessage('No active editor.');
         }        
     }
 
@@ -148,13 +148,13 @@ export class PistasVS {
             const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
             const responseEscribirMetrica = await ComunicacionDB.escribirCodigo(token, curso, bloque, reto, dato);
             if (responseEscribirMetrica.data.code !== 200) {
-                vscode.window.showErrorMessage('ERROR EN LA BASE DE DATOS');
+                vscode.window.showErrorMessage('ERROR IN THE DATABASE');
             }
         }
     }
 
     public static async cargarCodigo(){
-        const respuesta = await vscode.window.showInformationMessage(`DESEA CARGAR EL CÓDIGO DEL ÚLTIMO RETO EJECUTADO`, { modal: false }, "SI", "NO");
+        const respuesta = await vscode.window.showInformationMessage(`DO YOU WANT TO LOAD THE CODE FROM THE LAST COMPLETED CHALLENGE?`, { modal: false }, "SI", "NO");
     
         if (respuesta === "SI") {
             const editor = vscode.window.activeTextEditor;
@@ -174,16 +174,16 @@ export class PistasVS {
                     editor.edit(editBuilder => {
                         editBuilder.replace(seleccion.isEmpty ? rangoTexto : seleccion, ultimoCodigo);
                     }).then(() => {
-                        vscode.window.showInformationMessage('ARCHIVO CARGADO CORRECTAMENTE');
+                        vscode.window.showInformationMessage('FILE LOADED SUCCESSFULLY');
                     });
                     
                 } catch (error) {
-                    vscode.window.showErrorMessage('ERROR AL COMUNICARSE CON LA BASE DE DATOS');
+                    vscode.window.showErrorMessage('ERROR WHEN COMMUNICATING WITH THE DATABASE');
                 }
                 
 
             }else{
-                vscode.window.showErrorMessage('DEBE TENER UN ARCHIVO DE PYTHON ABIERTO');
+                vscode.window.showErrorMessage('YOU MUST HAVE A PYTHON FILE OPEN');
             }
         }
 

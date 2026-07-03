@@ -33,9 +33,9 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(
 		vscode.commands.registerCommand('progtutor.respDuda',async () => {
-			const result = await vscode.window.showInformationMessage("¿Como PROFESOR ha ayudado al estudiante?",{ modal: true },"SI");
+			const result = await vscode.window.showInformationMessage("As TEACHER have you helped the student?",{ modal: true },"SI");
 			if (result === "SI") {
-				vscode.window.showInformationMessage('SU DUDA HA SIDO RESUELTA');
+				vscode.window.showInformationMessage('YOUR QUESTION HAS BEEN RESOLVED');
 			const metrica = 'solvedDoubtCount';
 			await WorkMetric.aumentarMetrica(metrica);
 			}			
@@ -82,9 +82,9 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	
 	context.subscriptions.push(
 		vscode.commands.registerCommand('progtutor.Evaluar', async () => {
-			const result = await vscode.window.showInformationMessage("¿Estas seguro que deseas evaluar el reto?",{ modal: true },"Aceptar");
-			if (result === "Aceptar") {
-				vscode.window.showInformationMessage('EVALUACIÓN EN CURSO, REVISE EL SIMULADOR PARA MÁS DETALLES');
+			const result = await vscode.window.showInformationMessage("Are you sure you want to evaluate the challenge?",{ modal: true },"Accept");
+			if (result === "Accept") {
+				vscode.window.showInformationMessage('EVALUATION IN PROGRESS, PLEASE CHECK THE SIMULATOR FOR MORE DETAILS');
 				await PistasVS.evaluarCodigo();
 			}
 		}));
@@ -92,7 +92,7 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('progtutor.salvarArchivo', async () => {
 			await PistasVS.salvarCodigo();
-			vscode.window.showInformationMessage('ARCHIVO GUARDADO CORRECTAMENTE');
+			vscode.window.showInformationMessage('FILE SAVED SUCCESSFULLY');
 		}));
 
 	context.subscriptions.push(
@@ -122,7 +122,7 @@ export function activate(this: any, context: vscode.ExtensionContext) {
 			try {
 				ejecutar(diagnosticos, context);
 			  } catch (error) {
-				vscode.window.showErrorMessage(`Debe cargar un reto primero`);
+				vscode.window.showErrorMessage(`You must load a challenge first`);
 				ComunicacionDB.bloquearRobot();
 			  }
 		})
@@ -149,14 +149,14 @@ async function ejecutar(diagnosticos: any, context: vscode.ExtensionContext){
 	diagnosticos.clear();
 	const [token, curso, bloque, reto] = await ComunicacionDB.obtenerDatosUsuario();
 	if(reto === ''){
-		vscode.window.showInformationMessage(`No tiene ningún reto seleccionado`);
+		vscode.window.showInformationMessage(`You have not selected any challenge`);
 	}
 	else{
 		try {
 			await ComunicacionDB.desbloquearRobot();
 			await ejecutarArchivo(diagnosticos, context);
 		} catch (error) {
-			vscode.window.showErrorMessage('Error durante la ejecución del reto');
+			vscode.window.showErrorMessage('Error during the execution of the challenge');
 			await ComunicacionDB.bloquearRobot();
 		}
 	}
@@ -170,7 +170,7 @@ async function ejecutarArchivo(diagnosticos: any, context: vscode.ExtensionConte
 	}
   
 	if (editor.document.languageId !== 'python') {
-	  vscode.window.showErrorMessage('Se debe seleccionar un archivo de Python.');
+	  vscode.window.showErrorMessage('You must select a Python file.');
 	  return;
 	}
 

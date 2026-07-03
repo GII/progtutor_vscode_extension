@@ -79,7 +79,7 @@ export class ComunicacionDB{
         const responseToken = await this.obtenerToken();
         
         if (responseToken.data.code !== 200) {
-            vscode.window.showErrorMessage('Debe abrir primero el simulador y cargar un reto');
+            vscode.window.showErrorMessage('You must open the simulator first and load a challenge');
         }
         
         const token = responseToken.data.data.userAuthToken;
@@ -90,7 +90,7 @@ export class ComunicacionDB{
         
         return [token, curso, bloque, reto];
         } catch (error) {
-            vscode.window.showErrorMessage('Debe abrir primero el simulador y cargar un reto');
+            vscode.window.showErrorMessage('You must open the simulator first and load a challenge');
             return ['', '', '', ''];
         }
     }

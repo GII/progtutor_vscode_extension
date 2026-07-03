@@ -1,4 +1,4 @@
-Estás utilizando una variable que no existe. 
-Revisa que estas nombrando correctamente la variable 
-(ten en cuenta las mayusculas) o que se encuentra 
-creada anterior a esta llamada 
+You are using a variable that does not exist.
+Make sure you are using the correct variable name
+(remember that Python is case-sensitive) 
+or that the variable has been defined before it is used.

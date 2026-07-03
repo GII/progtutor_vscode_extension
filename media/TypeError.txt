@@ -1,4 +1,5 @@
-Intentas hacer operaciones entre dos variables de 
-diferente tipo (ejemplo, entre un int y un string). 
-Revisa que las variables que intervienen en la 
-operación son las correctas.
+You are trying to perform operations between two 
+variables of different types 
+(for example, between an int and a string).
+Make sure that the variables involved in the operation 
+are the correct ones.

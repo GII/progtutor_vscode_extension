@@ -1,3 +1,3 @@
-Falta algún carácter en este línea de código o está 
-mal escrito. Revisa cuidadosamente esta línea de 
-código en busca de un error de escritura de algún carácter.
+A character is missing from this line of code or is
+incorrectly written. Carefully check this line of
+code for any typing errors or missing characters.

@@ -1,4 +1,4 @@
-Intentas pasarle a una función una variable con 
-el tipo de dato correcto pero con un valor inválido. 
-Revisa que el valor que le pasas a la función 
-esté dentro del rango correcto.
+You are trying to pass a variable to a function with
+the correct data type but an invalid value.
+Make sure that the value you are passing to the function
+is within the correct range.

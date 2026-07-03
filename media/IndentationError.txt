@@ -1,5 +1,5 @@
-La indentación de tu código no es correcta. 
-Revisa que la línea de código esté al nivel de 
-indentación adecuado, analizando las tabulaciones 
-y espacios que hayas usado, y el nivel lógico al 
-que debe ir (dentro de un bucle, condicional, función, etc)
+The indentation of your code is not correct.
+Make sure the line of code is at the correct
+indentation level by checking the tabs and
+spaces you have used, as well as the logical level
+it should belong to (inside a loop, conditional, function, etc.).

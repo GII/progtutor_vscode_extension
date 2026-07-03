@@ -1,2 +1,2 @@
-Intentas acceder a un atributo o método que no existe. 
-Revisa que el atributo o método que estás usando esté bien escrito
+You are trying to access an attribute or method that does not exist.
+Make sure the attribute or method you are using is spelled correctly.

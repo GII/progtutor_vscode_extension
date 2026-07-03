@@ -40,7 +40,7 @@ export class WebPrincipal implements vscode.WebviewViewProvider {
 					break;
 				case 'actualizar':
 					vscode.commands.executeCommand('progtutor.comUnity');
-					vscode.window.showInformationMessage(`Página actualizada`);
+					vscode.window.showInformationMessage(`Page updated`);
 					break;
 				case 'ejecutarPista1':
 					vscode.commands.executeCommand('progtutor.execPista1');
